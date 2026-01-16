@@ -1,0 +1,1348 @@
+{
+    "status": 200,
+    "nextPage": "https:\/\/opendata.mkrf.ru\/v2\/events\/$?l=5&cursor=AoE%2FATVjM2NlM2Y1NmNkZWQ5NzExMjIwMTU3MCExMDAwMDAx",
+    "cursor": "AoE\/ATVjM2NlM2Y1NmNkZWQ5NzExMjIwMTU3MCExMDAwMDAx",
+    "total": 6071523,
+    "filter": {
+        "odSetVersions": {
+            "$in": [
+                "5c3ce3f56cded97112201570"
+            ]
+        }
+    },
+    "o": false,
+    "s": 0,
+    "l": 5,
+    "data": [
+        {
+            "_id": "5c3d0b6593fa687ca435729a",
+            "nativeId": "100",
+            "hash": "2015-06-04T11:30:37.000Z",
+            "data": {
+                "info": {
+                    "path": "\/cdm\/v2\/events\/100",
+                    "category": "event",
+                    "createDate": "2015-02-10T07:44:17Z",
+                    "updateDate": "2015-06-04T11:30:37.000Z"
+                },
+                "general": {
+                    "id": 100,
+                    "name": "Выставка декоративно-прикладного творчества «Ради мира на земле»",
+                    "shortDescription": "В мае 2015 года в фойе районного модельного Дворца культуры состоится выставка декоративно-прикладного творчества.",
+                    "description": "В мае 2015 года в фойе районного модельного Дворца культуры состоится выставка декоративно-прикладного творчества&nbsp;<span>«Ради мира на земле»<\/span>, посвященная 70-летию Победы в Великой&nbsp;Отечественной войне. На выставке будут представлены изделия выполненные в различных техниках декоративно-прикладного творчества. приглашаем всех желающих посетить выставку!<br \/>",
+                    "ageRestriction": 0,
+                    "isFree": true,
+                    "status": "accepted",
+                    "start": "2015-04-30T20:00:00.000Z",
+                    "end": "2015-04-30T20:00:00.000Z",
+                    "tags": [
+                        {
+                            "id": 27,
+                            "name": "Декоративно-прикладное искусство",
+                            "sysName": "dekorativno-prikladnoe-iskusstvo"
+                        }
+                    ],
+                    "image": {
+                        "url": "https:\/\/all.culture.ru\/uploads\/117beb73f8cba7d7ecda7e028e70fc13.jpg",
+                        "title": "дом ремёсел.jpg"
+                    },
+                    "gallery": [
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/950723a6113bbd8d19ce1d89865910ea.jpg",
+                            "title": "950723a6113bbd8d19ce1d89865910ea.jpg"
+                        }
+                    ],
+                    "recommendations": [
+                        {
+                            "name": "Белгородская область",
+                            "id": 2
+                        }
+                    ],
+                    "category": {
+                        "type": "events",
+                        "name": "Выставки",
+                        "sysName": "vystavki",
+                        "id": 8
+                    },
+                    "organization": {
+                        "id": 303,
+                        "name": "МКУК «Дом ремёсел»",
+                        "type": "mincult",
+                        "subordinationIds": [
+                            21,
+                            2,
+                            1
+                        ],
+                        "subordination": {
+                            "name": "Красненский район",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "krasnenskiy-rayon",
+                            "id": 21
+                        },
+                        "localeIds": [],
+                        "locale": {
+                            "name": "Красненский район",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "krasnenskiy-rayon",
+                            "id": 21
+                        }
+                    },
+                    "places": [
+                        {
+                            "address": {
+                                "street": "ул Подгорная,д 2",
+                                "comment": "",
+                                "fiasHouseId": "99ba0fd0-0138-4c37-861a-e27f7cd32df6",
+                                "fiasStreetId": "8b3de7d6-3ea9-48fb-820b-567fc7e84740",
+                                "fiasSettlementId": "88e35741-962d-437e-a264-cb85fd07ae8a",
+                                "fiasAreaId": "aee72466-4cd5-4c31-9186-61eccf5966ae",
+                                "fiasRegionId": "639efe9d-3fc8-4438-8e70-ec4f2321f2a7",
+                                "fullAddress": "обл Белгородская,р-н Красненский,с Красное,ул Подгорная,д 2",
+                                "mapPosition": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        38.679749,
+                                        50.934383999999994
+                                    ]
+                                }
+                            },
+                            "externalInfo": [],
+                            "gallery": [],
+                            "localeIds": [
+                                2,
+                                1
+                            ],
+                            "locale": {
+                                "name": "Белгородская область",
+                                "timezone": "Europe\/Moscow",
+                                "sysName": "belgorodskaya-oblast",
+                                "id": 2
+                            },
+                            "recommendations": [],
+                            "seances": [
+                                {
+                                    "start": "2015-04-30T20:00:00Z",
+                                    "end": "2015-04-30T20:00:00Z"
+                                }
+                            ],
+                            "tags": [],
+                            "videoHostings": [],
+                            "ticketReport": []
+                        }
+                    ],
+                    "seances": [
+                        {
+                            "start": "2015-04-30T20:00:00Z",
+                            "end": "2015-04-30T20:00:00Z"
+                        }
+                    ]
+                }
+            },
+            "status": 2,
+            "errorFields": [
+                {
+                    "keyword": "type",
+                    "dataPath": ".general.places[0].address.mapPosition.coordinates[0]",
+                    "schemaPath": "#\/properties\/general\/properties\/places\/items\/properties\/address\/properties\/mapPosition\/properties\/coordinates\/items\/type",
+                    "params": {
+                        "type": "array"
+                    },
+                    "message": "should be array"
+                }
+            ],
+            "nativeName": "Выставка декоративно-прикладного творчества «Ради мира на земле»",
+            "activated": "2019-01-14T22:15:36.824Z",
+            "created": "2019-01-14T22:15:36.970Z",
+            "modified": "2019-09-08T18:08:59.320Z",
+            "odSetVersions": [
+                "5c3ce3f56cded97112201570"
+            ],
+            "odSetVersion": "5c3ce3f56cded97112201570",
+            "updateSession": "5c3ce3f56cded97112201571",
+            "odSchema": "59a423129a5a55204f05ac00",
+            "dataset": "57866908d95989950590d1d5"
+        },
+        {
+            "_id": "5c3d0b5c93fa687ca4353e97",
+            "nativeId": "10000",
+            "hash": "2019-08-07T09:52:24.000Z",
+            "data": {
+                "info": {
+                    "path": "\/cdm\/v2\/events\/10000",
+                    "category": "event",
+                    "createDate": "2015-09-24T13:16:35Z",
+                    "updateDate": "2021-07-20T11:21:55.000Z"
+                },
+                "general": {
+                    "id": 10000,
+                    "name": "Б.В. Асафьев «Бахчисарайский фонтан»",
+                    "organizer": "Ладонина Елена Михайловна +7 9101492373",
+                    "shortDescription": "Хореографическая поэма в двух актах по сценарию Н. Д. Волкова.",
+                    "description": "<p><span>В основу сюжета положена одноименная поэма А. С. Пушкина, написанная в 1821–1823 годах под впечатлением от посещения Бахчисарайского дворца крымских ханов. «Я прежде слыхал о странном памятнике влюбленного хана. К** поэтически описывала мне его, называя la fontaine des larmes (фонтан слёз)», – писал поэт в письме к Дельвигу.<\/span><\/p><p><span>Сердце жестокого и грозного хана Гирея разбито. Он готов бросить его к ногам своей юной наложницы – польской княжны Марии. Но прекрасная полячка остается верна памяти погибшего жениха. Зарема, покинутая Гиреем, тщетно пытается вернуть благосклонность своего властелина. В порыве ревности она убивает соперницу.<\/span><\/p><p><span>В память о несбывшейся любви Гирей воздвиг фонтан, который младые девы Тавриды, узнав это печальное предание, назвали фонтаном слез.<\/span><\/p>",
+                    "ageRestriction": 12,
+                    "isFree": false,
+                    "price": 300,
+                    "maxPrice": 1200,
+                    "status": "accepted",
+                    "needMedia": true,
+                    "visitorsCount": 1152,
+                    "start": "2017-10-01T15:00:00.000Z",
+                    "end": "2021-09-18T16:40:00.000Z",
+                    "tags": [
+                        {
+                            "id": 25,
+                            "name": "Классическое искусство",
+                            "sysName": "klassicheskoe-iskusstvo"
+                        },
+                        {
+                            "id": 31,
+                            "name": "Балет",
+                            "sysName": "balet"
+                        },
+                        {
+                            "id": 39,
+                            "name": "Для детей",
+                            "sysName": "dlya-detey"
+                        },
+                        {
+                            "id": 317,
+                            "name": "Для молодежи",
+                            "sysName": "dlya-molodezhi"
+                        },
+                        {
+                            "id": 323,
+                            "name": "Исполнительское искусство",
+                            "sysName": "ispolnitelskoe-iskusstvo"
+                        },
+                        {
+                            "id": 454,
+                            "name": "Александр Пушкин",
+                            "sysName": "aleksandr-pushkin"
+                        },
+                        {
+                            "id": 596,
+                            "name": "Доступная среда",
+                            "sysName": "dostupnaya-sreda"
+                        }
+                    ],
+                    "image": {
+                        "url": "https:\/\/all.culture.ru\/uploads\/21e854a64307b8bb34efa7da9764a97a.jpg",
+                        "title": "DSC_0125_1.jpg"
+                    },
+                    "gallery": [
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/caff80d27537fd0aee0d0a8b4fb1a4c8.jpeg",
+                            "title": "caff80d27537fd0aee0d0a8b4fb1a4c8.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/ba238bbe0f2cbe5e20f1d750298c3d9b.jpeg",
+                            "title": "ba238bbe0f2cbe5e20f1d750298c3d9b.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/857ee5fbbdf031a5df7aa38a66dac827.jpeg",
+                            "title": "857ee5fbbdf031a5df7aa38a66dac827.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/160650655b26a99b9fc01858debb80d4.jpeg",
+                            "title": "160650655b26a99b9fc01858debb80d4.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/000f68ea4ce0f7445d490f40b05c2392.jpeg",
+                            "title": "000f68ea4ce0f7445d490f40b05c2392.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/75595767a79c6fe82cbc299bd943dc15.jpeg",
+                            "title": "75595767a79c6fe82cbc299bd943dc15.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/30928a474a6a915c08d0bf6a63ddfb59.jpeg",
+                            "title": "30928a474a6a915c08d0bf6a63ddfb59.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/11c357f86f741661881d0bf4c031cbb1.jpeg",
+                            "title": "11c357f86f741661881d0bf4c031cbb1.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/bcbd3d5ca85ea99320cba4a55753da71.jpeg",
+                            "title": "bcbd3d5ca85ea99320cba4a55753da71.jpeg"
+                        },
+                        {
+                            "url": "https:\/\/all.culture.ru\/uploads\/e685f8e1eb0bacbb39ce2a5a5d51f45c.jpeg",
+                            "title": "e685f8e1eb0bacbb39ce2a5a5d51f45c.jpeg"
+                        }
+                    ],
+                    "recommendations": [
+                        {
+                            "name": "Нижегородская область",
+                            "id": 190
+                        }
+                    ],
+                    "category": {
+                        "type": "events",
+                        "name": "Спектакли",
+                        "sysName": "spektakli"
+                    },
+                    "organization": {
+                        "id": 8417,
+                        "name": "ГБУК НО «Нижегородский государственный академический театр оперы и балета имени А.С. Пушкина»",
+                        "type": "mincult",
+                        "subordinationIds": [
+                            190,
+                            1
+                        ],
+                        "subordination": {
+                            "name": "Нижегородская область",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "nizhegorodskaya-oblast",
+                            "id": 190
+                        },
+                        "localeIds": [],
+                        "locale": {
+                            "name": "Нижний Новгород",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "nizhniy-novgorod",
+                            "id": 1310
+                        }
+                    },
+                    "places": [
+                        {
+                            "id": 13477,
+                            "name": "Нижегородский государственный академический театр оперы и балета имени А. С. Пушкина",
+                            "address": {
+                                "street": "ул Белинского,д 59",
+                                "comment": "",
+                                "fiasHouseId": "fc65a064-1e89-43a9-8a48-94928b3bc4b7",
+                                "fiasStreetId": "718dfe35-14ec-4ea4-94fb-2ef9534282c3",
+                                "fullAddress": "обл Нижегородская,г Нижний Новгород,ул Белинского,д 59",
+                                "mapPosition": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        56.31551,
+                                        44.017143
+                                    ]
+                                }
+                            },
+                            "category": {
+                                "name": "Театры",
+                                "sysName": "teatry"
+                            },
+                            "externalInfo": [],
+                            "gallery": [],
+                            "image": {
+                                "url": "https:\/\/all.culture.ru\/uploads\/404e6b1523e922cdc7f7ededb672b570.jpeg",
+                                "title": "WhatsApp Image 2020-04-16 at 18.23.43.jpeg"
+                            },
+                            "localeIds": [
+                                1310,
+                                190,
+                                1
+                            ],
+                            "locale": {
+                                "name": "Нижний Новгород",
+                                "timezone": "Europe\/Moscow",
+                                "sysName": "nizhniy-novgorod",
+                                "id": 1310
+                            },
+                            "recommendations": [],
+                            "tags": [],
+                            "videoHostings": []
+                        }
+                    ],
+                    "seances": [
+                        {
+                            "start": "2017-10-01T15:00:00Z",
+                            "end": "2017-10-01T17:00:00Z"
+                        },
+                        {
+                            "start": "2017-11-22T15:00:00Z",
+                            "end": "2017-11-22T17:00:00Z"
+                        },
+                        {
+                            "start": "2017-12-15T15:00:00Z",
+                            "end": "2017-12-15T17:00:00Z"
+                        },
+                        {
+                            "start": "2018-04-22T15:00:00Z",
+                            "end": "2018-04-22T18:00:00Z"
+                        },
+                        {
+                            "start": "2018-05-20T15:00:00Z",
+                            "end": "2018-05-20T16:40:00Z"
+                        },
+                        {
+                            "start": "2018-09-23T09:00:00Z",
+                            "end": "2018-09-23T11:00:00Z"
+                        },
+                        {
+                            "start": "2018-11-16T15:00:00Z",
+                            "end": "2018-11-16T17:00:00Z"
+                        },
+                        {
+                            "start": "2019-02-17T15:00:00Z",
+                            "end": "2019-02-17T17:00:00Z"
+                        },
+                        {
+                            "start": "2019-05-16T15:00:00Z",
+                            "end": "2019-05-16T18:00:00Z"
+                        },
+                        {
+                            "start": "2019-09-21T15:00:00Z",
+                            "end": "2019-09-21T16:40:00Z"
+                        },
+                        {
+                            "start": "2021-09-18T15:00:00Z",
+                            "end": "2021-09-18T16:40:00Z"
+                        }
+                    ]
+                }
+            },
+            "status": 2,
+            "errorFields": [
+                {
+                    "keyword": "type",
+                    "dataPath": ".general.places[0].address.mapPosition.coordinates[0]",
+                    "schemaPath": "#\/properties\/general\/properties\/places\/items\/properties\/address\/properties\/mapPosition\/properties\/coordinates\/items\/type",
+                    "params": {
+                        "type": "array"
+                    },
+                    "message": "should be array"
+                }
+            ],
+            "nativeName": "Балет «Бахчисарайский фонтан»",
+            "activated": "2019-08-07T22:45:45.719Z",
+            "created": "2019-08-07T22:45:45.838Z",
+            "modified": "2021-07-20T22:09:31.753Z",
+            "odSetVersions": [
+                "5c3ce3f56cded97112201570"
+            ],
+            "odSetVersion": "5c3ce3f56cded97112201570",
+            "updateSession": "5d4b5488abe2e66b0aa4528d",
+            "odSchema": "59a423129a5a55204f05ac00",
+            "dataset": "57866908d95989950590d1d5",
+            "changes": [
+                {
+                    "modified": "2021-07-20T22:09:31.753Z",
+                    "diff": [
+                        {
+                            "op": "add",
+                            "path": "\/general\/seances\/10",
+                            "value": {
+                                "start": "2021-09-18T15:00:00Z",
+                                "end": "2021-09-18T16:40:00Z"
+                            }
+                        },
+                        {
+                            "op": "add",
+                            "path": "\/general\/places\/0",
+                            "value": {
+                                "id": 13477,
+                                "name": "Нижегородский государственный академический театр оперы и балета имени А. С. Пушкина",
+                                "address": {
+                                    "street": "ул Белинского,д 59",
+                                    "comment": "",
+                                    "fiasHouseId": "fc65a064-1e89-43a9-8a48-94928b3bc4b7",
+                                    "fiasStreetId": "718dfe35-14ec-4ea4-94fb-2ef9534282c3",
+                                    "fullAddress": "обл Нижегородская,г Нижний Новгород,ул Белинского,д 59",
+                                    "mapPosition": {
+                                        "type": "Point",
+                                        "coordinates": [
+                                            56.31551,
+                                            44.017143
+                                        ]
+                                    }
+                                },
+                                "category": {
+                                    "name": "Театры",
+                                    "sysName": "teatry"
+                                },
+                                "externalInfo": [],
+                                "gallery": [],
+                                "image": {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/404e6b1523e922cdc7f7ededb672b570.jpeg",
+                                    "title": "WhatsApp Image 2020-04-16 at 18.23.43.jpeg"
+                                },
+                                "localeIds": [
+                                    1310,
+                                    190,
+                                    1
+                                ],
+                                "locale": {
+                                    "name": "Нижний Новгород",
+                                    "timezone": "Europe\/Moscow",
+                                    "sysName": "nizhniy-novgorod",
+                                    "id": 1310
+                                },
+                                "recommendations": [],
+                                "tags": [],
+                                "videoHostings": []
+                            }
+                        },
+                        {
+                            "op": "remove",
+                            "path": "\/general\/places\/1"
+                        },
+                        {
+                            "op": "add",
+                            "path": "\/general\/gallery",
+                            "value": [
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/caff80d27537fd0aee0d0a8b4fb1a4c8.jpeg",
+                                    "title": "caff80d27537fd0aee0d0a8b4fb1a4c8.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/ba238bbe0f2cbe5e20f1d750298c3d9b.jpeg",
+                                    "title": "ba238bbe0f2cbe5e20f1d750298c3d9b.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/857ee5fbbdf031a5df7aa38a66dac827.jpeg",
+                                    "title": "857ee5fbbdf031a5df7aa38a66dac827.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/160650655b26a99b9fc01858debb80d4.jpeg",
+                                    "title": "160650655b26a99b9fc01858debb80d4.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/000f68ea4ce0f7445d490f40b05c2392.jpeg",
+                                    "title": "000f68ea4ce0f7445d490f40b05c2392.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/75595767a79c6fe82cbc299bd943dc15.jpeg",
+                                    "title": "75595767a79c6fe82cbc299bd943dc15.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/30928a474a6a915c08d0bf6a63ddfb59.jpeg",
+                                    "title": "30928a474a6a915c08d0bf6a63ddfb59.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/11c357f86f741661881d0bf4c031cbb1.jpeg",
+                                    "title": "11c357f86f741661881d0bf4c031cbb1.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/bcbd3d5ca85ea99320cba4a55753da71.jpeg",
+                                    "title": "bcbd3d5ca85ea99320cba4a55753da71.jpeg"
+                                },
+                                {
+                                    "url": "https:\/\/all.culture.ru\/uploads\/e685f8e1eb0bacbb39ce2a5a5d51f45c.jpeg",
+                                    "title": "e685f8e1eb0bacbb39ce2a5a5d51f45c.jpeg"
+                                }
+                            ]
+                        },
+                        {
+                            "op": "remove",
+                            "path": "\/general\/tags\/7"
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/general\/end",
+                            "value": "2021-09-18T16:40:00.000Z"
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/general\/start",
+                            "value": "2017-10-01T15:00:00.000Z"
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/general\/needMedia",
+                            "value": true
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/general\/maxPrice",
+                            "value": 1200
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/general\/price",
+                            "value": 300
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/general\/shortDescription",
+                            "value": "Хореографическая поэма в двух актах по сценарию Н. Д. Волкова."
+                        },
+                        {
+                            "op": "add",
+                            "path": "\/general\/organizer",
+                            "value": "Ладонина Елена Михайловна +7 9101492373"
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/general\/name",
+                            "value": "Б.В. Асафьев «Бахчисарайский фонтан»"
+                        },
+                        {
+                            "op": "remove",
+                            "path": "\/general\/saleLink"
+                        },
+                        {
+                            "op": "replace",
+                            "path": "\/info\/updateDate",
+                            "value": "2021-07-20T11:21:55.000Z"
+                        }
+                    ],
+                    "updateSession": "60f7498e21aa3871deee7e02"
+                }
+            ]
+        },
+        {
+            "_id": "5c3d0b0893fa687ca4331c16",
+            "nativeId": "100000",
+            "hash": "2017-02-21T09:27:25.000Z",
+            "data": {
+                "info": {
+                    "path": "\/cdm\/v2\/events\/100000",
+                    "category": "event",
+                    "createDate": "2017-02-15T12:42:11Z",
+                    "updateDate": "2017-02-21T09:27:25.000Z"
+                },
+                "general": {
+                    "id": 100000,
+                    "name": "Урок мужества",
+                    "shortDescription": "Встреча школьников с представителями военных династий в честь Дня защитника Отечества.",
+                    "description": "<p><span>Есть такая профессия – Родину защищать. 22 февраля 2017 года в честь Дня защитника Отечества в Историко-краеведческом музее учащиеся районных школ встретятся с представителями военных династий Большечерниговского района. <\/span><\/p><p><span>На встречу приглашены школьники Августовской и Краснооктябрьской школ, курсанты районного отделения ДОСААФ. О военной службе ребятам расскажут офицеры в отставке – подполковник Сухов Александр Ильич, капитан II ранга Ларгин Сргей Николаевич, служивший на Черноморском флоте, Сыромятниковы Геннадий Михайлович и Василий Михайлович, оба ушли в отставку в звании полковника, а также действующий офицер Тихоокеанского флота Мокин Анатолий Николаевич. Об особенностях своей службы расскажут ветераны Великой Отечественной Войны – Боровков Михаил Иванович и Сыромятников Михаил Васильевич. <\/span><\/p><p><span>Представители военно-патриотического клуба Краснооктябрьской школы организуют пост № 1 у памятника погибшим августовцам в ВОВ. Освещать мероприятие будут репортеры <\/span><span>местной <\/span><span>газеты «Степной маяк».<\/span><\/p>",
+                    "ageRestriction": 12,
+                    "isFree": true,
+                    "status": "accepted",
+                    "needMedia": false,
+                    "visitorsCount": 50,
+                    "start": "2017-02-22T07:00:00.000Z",
+                    "end": "2017-02-22T09:00:00.000Z",
+                    "tags": [
+                        {
+                            "id": 178,
+                            "name": "Бесплатно",
+                            "sysName": "besplatno"
+                        },
+                        {
+                            "id": 225,
+                            "name": "Военно-патриотическое воспитание",
+                            "sysName": "voenno-patrioticheskoe-vospitanie"
+                        },
+                        {
+                            "id": 317,
+                            "name": "Для молодежи",
+                            "sysName": "dlya-molodezhi"
+                        },
+                        {
+                            "id": 614,
+                            "name": "День защитника Отечества",
+                            "sysName": "den-zashchitnika-otechestva"
+                        }
+                    ],
+                    "image": {
+                        "url": "https:\/\/all.culture.ru\/uploads\/f719fa39df9d05f0063ec13305dbcf6d.JPG",
+                        "title": "DSCF7354.JPG"
+                    },
+                    "category": {
+                        "type": "events",
+                        "name": "Встречи",
+                        "sysName": "vstrechi"
+                    },
+                    "organization": {
+                        "id": 4714,
+                        "name": "МБУ «Историко-краеведческий музей имени Героя Социалистического Труда  Н.П. Попова»",
+                        "type": "mincult",
+                        "subordinationIds": [
+                            1595,
+                            206,
+                            1
+                        ],
+                        "subordination": {
+                            "name": "Большечерниговский район",
+                            "timezone": "Europe\/Samara",
+                            "sysName": "bolshechernigovskiy-rayon",
+                            "id": 1595
+                        },
+                        "localeIds": [],
+                        "locale": {
+                            "name": "Большечерниговский район",
+                            "timezone": "Europe\/Samara",
+                            "sysName": "bolshechernigovskiy-rayon",
+                            "id": 1595
+                        }
+                    },
+                    "organizerPlace": {
+                        "id": 7164,
+                        "name": "Большечерниговский историко-краеведческий музей",
+                        "externalInfo": [],
+                        "gallery": [],
+                        "locale": {
+                            "name": "Большечерниговский район",
+                            "id": 1595
+                        },
+                        "recommendations": [],
+                        "tags": [],
+                        "videoHostings": [],
+                        "ticketReport": []
+                    },
+                    "places": [
+                        {
+                            "id": 7164,
+                            "name": "Большечерниговский историко-краеведческий музей",
+                            "address": {
+                                "street": "ул Победы,д 43",
+                                "comment": "",
+                                "fiasStreetId": "ac18277a-defa-4e1f-902b-159ebd3bc7a2",
+                                "fiasSettlementId": "89ac800d-6f95-4907-aaf5-c7a8d608c86d",
+                                "fiasAreaId": "c2be48d4-240a-401e-8462-446a0433df80",
+                                "fiasRegionId": "df3d7359-afa9-4aaa-8ff9-197e73906b1c",
+                                "fullAddress": "обл Самарская,р-н Большечерниговский,с Августовка,ул Победы,д 43",
+                                "mapPosition": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        50.742965000000005,
+                                        52.243947
+                                    ]
+                                }
+                            },
+                            "category": {
+                                "name": "Музеи и галереи",
+                                "sysName": "muzei-i-galerei"
+                            },
+                            "externalInfo": [],
+                            "gallery": [],
+                            "image": {
+                                "url": "https:\/\/all.culture.ru\/uploads\/e57e46b6ab5ac44a4f4ee8895d87eb3c.JPG",
+                                "title": "a0ce4e1ccf3d13a3726bd998f3d728bb_w2048_h2048.JPG"
+                            },
+                            "localeIds": [
+                                1595,
+                                206,
+                                1
+                            ],
+                            "locale": {
+                                "name": "Большечерниговский район",
+                                "timezone": "Europe\/Samara",
+                                "sysName": "bolshechernigovskiy-rayon",
+                                "id": 1595
+                            },
+                            "recommendations": [],
+                            "seances": [
+                                {
+                                    "start": "2017-02-22T07:00:00Z",
+                                    "end": "2017-02-22T09:00:00Z"
+                                }
+                            ],
+                            "tags": [],
+                            "videoHostings": [],
+                            "ticketReport": []
+                        }
+                    ],
+                    "seances": [
+                        {
+                            "start": "2017-02-22T07:00:00Z",
+                            "end": "2017-02-22T09:00:00Z"
+                        }
+                    ]
+                }
+            },
+            "status": 2,
+            "errorFields": [
+                {
+                    "keyword": "type",
+                    "dataPath": ".general.places[0].address.mapPosition.coordinates[0]",
+                    "schemaPath": "#\/properties\/general\/properties\/places\/items\/properties\/address\/properties\/mapPosition\/properties\/coordinates\/items\/type",
+                    "params": {
+                        "type": "array"
+                    },
+                    "message": "should be array"
+                }
+            ],
+            "nativeName": "Урок мужества",
+            "activated": "2019-01-14T22:15:36.824Z",
+            "created": "2019-01-14T22:15:36.970Z",
+            "modified": "2019-09-08T18:05:57.587Z",
+            "odSetVersions": [
+                "5c3ce3f56cded97112201570"
+            ],
+            "odSetVersion": "5c3ce3f56cded97112201570",
+            "updateSession": "5c3ce3f56cded97112201571",
+            "odSchema": "59a423129a5a55204f05ac00",
+            "dataset": "57866908d95989950590d1d5"
+        },
+        {
+            "0": "2021-03-17T22:07:31.023Z",
+            "1": "60527da3baf2b02d038cc0e4",
+            "2": [
+                "5c3ce3f56cded97112201570"
+            ],
+            "_id": "60527db9ed5c222cc714fa7d",
+            "odSchema": "59a423129a5a55204f05ac00",
+            "dataset": "57866908d95989950590d1d5",
+            "updateSession": "60527da3baf2b02d038cc0e4",
+            "created": "2021-03-17T22:07:53.035Z",
+            "modified": "2021-03-17T22:07:53.035Z",
+            "odSetVersion": "5c3ce3f56cded97112201570",
+            "odSetVersions": [
+                "5c3ce3f56cded97112201570"
+            ],
+            "hash": "2021-03-17T15:44:11.000Z",
+            "nativeId": "1000000",
+            "nativeName": "«Оживи книжного героя»",
+            "data": {
+                "info": {
+                    "path": "\/cdm\/v2\/events\/1000000",
+                    "category": "event",
+                    "createDate": "2021-03-17T15:44:11Z",
+                    "updateDate": "2021-03-17T15:44:11.000Z"
+                },
+                "general": {
+                    "id": 1000000,
+                    "name": "«Оживи книжного героя»",
+                    "organizer": "Васильева Е.А. 8-47-233-5-31-17",
+                    "shortDescription": "Час актерского мастерства.",
+                    "description": "Театр – это жизнь. Всё, что актёры воплощают на сцене, связано с жизнью и жизненными историями. На сцене живут и борются, радуются и страдают герои. Ты волнуешься за их судьбу, горячо сочувствуешь им, ненавидишь их врагов. Сегодня участники театрального коллектива докажут, что все – талантливы. Участники коллектива «Джем» и их руководитель Екатерина Андреевна Васильева раскроют все секреты мастерства с помощью творческих испытаний и чтобы с ними справиться, каждому необходимо приложить старания.",
+                    "ageRestriction": 12,
+                    "isFree": true,
+                    "status": "accepted",
+                    "start": "2021-03-27T15:00:00.000Z",
+                    "end": "2021-03-27T16:00:00.000Z",
+                    "tags": [
+                        {
+                            "id": 39,
+                            "name": "Для детей",
+                            "sysName": "dlya-detey"
+                        },
+                        {
+                            "id": 178,
+                            "name": "Бесплатно",
+                            "sysName": "besplatno"
+                        },
+                        {
+                            "id": 596,
+                            "name": "Доступная среда",
+                            "sysName": "dostupnaya-sreda"
+                        },
+                        {
+                            "id": 624,
+                            "name": "День театра",
+                            "sysName": "den-teatra"
+                        }
+                    ],
+                    "image": {
+                        "url": "https:\/\/all.culture.ru\/uploads\/176cd58a647bcd368b44bb16f4251c12.jpeg",
+                        "title": "ева.jpg"
+                    },
+                    "category": {
+                        "type": "events",
+                        "name": "Обучение",
+                        "sysName": "obuchenie"
+                    },
+                    "organization": {
+                        "id": 175,
+                        "name": "МКУК «Новооскольская клубная система»",
+                        "type": "mincult",
+                        "subordinationIds": [
+                            24,
+                            2,
+                            1
+                        ],
+                        "subordination": {
+                            "name": "Новооскольский район",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "novooskolskiy-rayon",
+                            "id": 24
+                        },
+                        "localeIds": [],
+                        "locale": {
+                            "name": "Новооскольский район",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "novooskolskiy-rayon",
+                            "id": 24
+                        }
+                    },
+                    "places": [
+                        {
+                            "id": 977,
+                            "name": "Тростенецкий сельский Дом культуры",
+                            "address": {
+                                "street": "ул Административная,д 3",
+                                "comment": "",
+                                "fiasHouseId": "ea9bfdd5-45e6-42c1-a4f6-c40df8d16c56",
+                                "fiasStreetId": "c0570de0-1a86-441a-b312-ac01ed0665a7",
+                                "fullAddress": "обл Белгородская,р-н Новооскольский,с Тростенец,ул Административная,д 3",
+                                "mapPosition": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        50.840952,
+                                        37.652696
+                                    ]
+                                }
+                            },
+                            "category": {
+                                "name": "Дворцы культуры и клубы",
+                                "sysName": "dvorcy-kultury-i-kluby"
+                            },
+                            "externalInfo": [],
+                            "gallery": [],
+                            "image": {
+                                "url": "https:\/\/all.culture.ru\/uploads\/cb6cb145335c36dcdf50c94ccc6b989f.jpg",
+                                "title": "99bafed8094224b6e9a926cfa0b656bb_w2048_h2048.jpg"
+                            },
+                            "localeIds": [
+                                24,
+                                2,
+                                1
+                            ],
+                            "locale": {
+                                "name": "Новооскольский район",
+                                "timezone": "Europe\/Moscow",
+                                "sysName": "novooskolskiy-rayon",
+                                "id": 24
+                            },
+                            "recommendations": [],
+                            "tags": [],
+                            "videoHostings": []
+                        }
+                    ],
+                    "seances": [
+                        {
+                            "start": "2021-03-27T15:00:00Z",
+                            "end": "2021-03-27T16:00:00Z"
+                        }
+                    ]
+                }
+            },
+            "changes": [
+                {
+                    "modified": "2021-03-17T22:07:53.035Z",
+                    "diff": [
+                        {
+                            "op": "add",
+                            "path": "\/",
+                            "value": {
+                                "info": {
+                                    "path": "\/cdm\/v2\/events\/1000000",
+                                    "category": "event",
+                                    "createDate": "2021-03-17T15:44:11Z",
+                                    "updateDate": "2021-03-17T15:44:11.000Z"
+                                },
+                                "general": {
+                                    "id": 1000000,
+                                    "name": "«Оживи книжного героя»",
+                                    "organizer": "Васильева Е.А. 8-47-233-5-31-17",
+                                    "shortDescription": "Час актерского мастерства.",
+                                    "description": "Театр – это жизнь. Всё, что актёры воплощают на сцене, связано с жизнью и жизненными историями. На сцене живут и борются, радуются и страдают герои. Ты волнуешься за их судьбу, горячо сочувствуешь им, ненавидишь их врагов. Сегодня участники театрального коллектива докажут, что все – талантливы. Участники коллектива «Джем» и их руководитель Екатерина Андреевна Васильева раскроют все секреты мастерства с помощью творческих испытаний и чтобы с ними справиться, каждому необходимо приложить старания.",
+                                    "ageRestriction": 12,
+                                    "isFree": true,
+                                    "status": "accepted",
+                                    "start": "2021-03-27T15:00:00.000Z",
+                                    "end": "2021-03-27T16:00:00.000Z",
+                                    "tags": [
+                                        {
+                                            "id": 39,
+                                            "name": "Для детей",
+                                            "sysName": "dlya-detey"
+                                        },
+                                        {
+                                            "id": 178,
+                                            "name": "Бесплатно",
+                                            "sysName": "besplatno"
+                                        },
+                                        {
+                                            "id": 596,
+                                            "name": "Доступная среда",
+                                            "sysName": "dostupnaya-sreda"
+                                        },
+                                        {
+                                            "id": 624,
+                                            "name": "День театра",
+                                            "sysName": "den-teatra"
+                                        }
+                                    ],
+                                    "image": {
+                                        "url": "https:\/\/all.culture.ru\/uploads\/176cd58a647bcd368b44bb16f4251c12.jpeg",
+                                        "title": "ева.jpg"
+                                    },
+                                    "category": {
+                                        "type": "events",
+                                        "name": "Обучение",
+                                        "sysName": "obuchenie"
+                                    },
+                                    "organization": {
+                                        "id": 175,
+                                        "name": "МКУК «Новооскольская клубная система»",
+                                        "type": "mincult",
+                                        "subordinationIds": [
+                                            24,
+                                            2,
+                                            1
+                                        ],
+                                        "subordination": {
+                                            "name": "Новооскольский район",
+                                            "timezone": "Europe\/Moscow",
+                                            "sysName": "novooskolskiy-rayon",
+                                            "id": 24
+                                        },
+                                        "localeIds": [],
+                                        "locale": {
+                                            "name": "Новооскольский район",
+                                            "timezone": "Europe\/Moscow",
+                                            "sysName": "novooskolskiy-rayon",
+                                            "id": 24
+                                        }
+                                    },
+                                    "places": [
+                                        {
+                                            "id": 977,
+                                            "name": "Тростенецкий сельский Дом культуры",
+                                            "address": {
+                                                "street": "ул Административная,д 3",
+                                                "comment": "",
+                                                "fiasHouseId": "ea9bfdd5-45e6-42c1-a4f6-c40df8d16c56",
+                                                "fiasStreetId": "c0570de0-1a86-441a-b312-ac01ed0665a7",
+                                                "fullAddress": "обл Белгородская,р-н Новооскольский,с Тростенец,ул Административная,д 3",
+                                                "mapPosition": {
+                                                    "type": "Point",
+                                                    "coordinates": [
+                                                        50.840952,
+                                                        37.652696
+                                                    ]
+                                                }
+                                            },
+                                            "category": {
+                                                "name": "Дворцы культуры и клубы",
+                                                "sysName": "dvorcy-kultury-i-kluby"
+                                            },
+                                            "externalInfo": [],
+                                            "gallery": [],
+                                            "image": {
+                                                "url": "https:\/\/all.culture.ru\/uploads\/cb6cb145335c36dcdf50c94ccc6b989f.jpg",
+                                                "title": "99bafed8094224b6e9a926cfa0b656bb_w2048_h2048.jpg"
+                                            },
+                                            "localeIds": [
+                                                24,
+                                                2,
+                                                1
+                                            ],
+                                            "locale": {
+                                                "name": "Новооскольский район",
+                                                "timezone": "Europe\/Moscow",
+                                                "sysName": "novooskolskiy-rayon",
+                                                "id": 24
+                                            },
+                                            "recommendations": [],
+                                            "tags": [],
+                                            "videoHostings": []
+                                        }
+                                    ],
+                                    "seances": [
+                                        {
+                                            "start": "2021-03-27T15:00:00Z",
+                                            "end": "2021-03-27T16:00:00Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "updateSession": "60527da3baf2b02d038cc0e4"
+                }
+            ],
+            "status": 2,
+            "errorFields": [
+                {
+                    "keyword": "type",
+                    "dataPath": ".general.places[0].address.mapPosition.coordinates[0]",
+                    "schemaPath": "#\/properties\/general\/properties\/places\/items\/properties\/address\/properties\/mapPosition\/properties\/coordinates\/items\/type",
+                    "params": {
+                        "type": "array"
+                    },
+                    "message": "should be array"
+                }
+            ]
+        },
+        {
+            "0": "2021-03-17T22:07:31.023Z",
+            "1": "60527da3baf2b02d038cc0e4",
+            "2": [
+                "5c3ce3f56cded97112201570"
+            ],
+            "_id": "60527db9ed5c222cc714fa7c",
+            "odSchema": "59a423129a5a55204f05ac00",
+            "dataset": "57866908d95989950590d1d5",
+            "updateSession": "60527da3baf2b02d038cc0e4",
+            "created": "2021-03-17T22:07:53.035Z",
+            "modified": "2021-03-17T22:07:53.035Z",
+            "odSetVersion": "5c3ce3f56cded97112201570",
+            "odSetVersions": [
+                "5c3ce3f56cded97112201570"
+            ],
+            "hash": "2021-03-17T15:44:42.000Z",
+            "nativeId": "1000001",
+            "nativeName": "Интерактивное занятие «Секреты энтомолога»",
+            "data": {
+                "info": {
+                    "path": "\/cdm\/v2\/events\/1000001",
+                    "category": "event",
+                    "createDate": "2021-03-17T15:44:42Z",
+                    "updateDate": "2021-03-17T15:44:42.000Z"
+                },
+                "general": {
+                    "id": 1000001,
+                    "name": "Интерактивное занятие «Секреты энтомолога»",
+                    "shortDescription": "Занятие для детей о насекомых и о профессии энтомолога.",
+                    "description": "<p>Насекомые – самая большая группа животных на Земле. Участники занятия познакомятся с удивительным миром&nbsp;шестиногих завоевателей планеты с помощью профессионального энтомолога. <\/p><p>Вместе с ним посетители попробуют научиться отличать жесткокрылых, перепончатокрылых и чешуекрылых. Энтомолог расскажет, по каким признакам можно отличать опасных и безобидных насекомых. На занятии будет представлен мир науки, в который погружаются учёные-энтомологи, чтобы определить вид насекомого.<\/p><p>Занятие проходит в экспозиции «Природа Ярославского края».<\/p>",
+                    "ageRestriction": 0,
+                    "isFree": false,
+                    "price": 100,
+                    "maxPrice": 100,
+                    "status": "accepted",
+                    "start": "2021-03-24T11:00:00.000Z",
+                    "end": "2021-03-26T11:45:00.000Z",
+                    "tags": [
+                        {
+                            "id": 22,
+                            "name": "Естественные науки",
+                            "sysName": "estestvennye-nauki"
+                        },
+                        {
+                            "id": 39,
+                            "name": "Для детей",
+                            "sysName": "dlya-detey"
+                        },
+                        {
+                            "id": 714,
+                            "name": "Природа",
+                            "sysName": "priroda"
+                        }
+                    ],
+                    "image": {
+                        "url": "https:\/\/all.culture.ru\/uploads\/195c897284f07da047f99da5a738a611.jpeg",
+                        "title": "IMG_5746.JPG"
+                    },
+                    "category": {
+                        "type": "events",
+                        "name": "Встречи",
+                        "sysName": "vstrechi"
+                    },
+                    "organization": {
+                        "id": 7746,
+                        "name": "ГАУК ЯО «Ярославский государственный историко-архитектурный и художественный музей-заповедник»",
+                        "type": "mincult",
+                        "subordinationIds": [
+                            202,
+                            1
+                        ],
+                        "subordination": {
+                            "name": "Ярославская область",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "yaroslavskaya-oblast",
+                            "id": 202
+                        },
+                        "localeIds": [],
+                        "locale": {
+                            "name": "Ярославль",
+                            "timezone": "Europe\/Moscow",
+                            "sysName": "yaroslavl",
+                            "id": 1248
+                        }
+                    },
+                    "places": [
+                        {
+                            "id": 12863,
+                            "name": "Ярославский историко-архитектурный музей-заповедник",
+                            "address": {
+                                "street": "пл Богоявленская,д 25",
+                                "comment": "до остановки «Богоявленская площадь» или «ул. Первомайская» или «ул. Комсомольская»",
+                                "fiasHouseId": "98838abd-5f47-4f4a-96df-6f01b2eccf98",
+                                "fiasStreetId": "d2589b05-9b1e-4892-b462-08efe2ad1f4c",
+                                "fullAddress": "обл Ярославская,г Ярославль,пл Богоявленская,д 25",
+                                "mapPosition": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        57.621132,
+                                        39.88864799999999
+                                    ]
+                                }
+                            },
+                            "category": {
+                                "name": "Музеи и галереи",
+                                "sysName": "muzei-i-galerei"
+                            },
+                            "externalInfo": [],
+                            "gallery": [],
+                            "image": {
+                                "url": "https:\/\/all.culture.ru\/uploads\/86508bc5f4de7bbab205c39bc674baa0.JPG",
+                                "title": "P1000359.JPG"
+                            },
+                            "localeIds": [
+                                1248,
+                                202,
+                                1
+                            ],
+                            "locale": {
+                                "name": "Ярославль",
+                                "timezone": "Europe\/Moscow",
+                                "sysName": "yaroslavl",
+                                "id": 1248
+                            },
+                            "recommendations": [],
+                            "tags": [],
+                            "videoHostings": []
+                        }
+                    ],
+                    "seances": [
+                        {
+                            "start": "2021-03-24T11:00:00Z",
+                            "end": "2021-03-24T11:45:00Z"
+                        },
+                        {
+                            "start": "2021-03-26T11:00:00Z",
+                            "end": "2021-03-26T11:45:00Z"
+                        }
+                    ]
+                }
+            },
+            "changes": [
+                {
+                    "modified": "2021-03-17T22:07:53.035Z",
+                    "diff": [
+                        {
+                            "op": "add",
+                            "path": "\/",
+                            "value": {
+                                "info": {
+                                    "path": "\/cdm\/v2\/events\/1000001",
+                                    "category": "event",
+                                    "createDate": "2021-03-17T15:44:42Z",
+                                    "updateDate": "2021-03-17T15:44:42.000Z"
+                                },
+                                "general": {
+                                    "id": 1000001,
+                                    "name": "Интерактивное занятие «Секреты энтомолога»",
+                                    "shortDescription": "Занятие для детей о насекомых и о профессии энтомолога.",
+                                    "description": "<p>Насекомые – самая большая группа животных на Земле. Участники занятия познакомятся с удивительным миром&nbsp;шестиногих завоевателей планеты с помощью профессионального энтомолога. <\/p><p>Вместе с ним посетители попробуют научиться отличать жесткокрылых, перепончатокрылых и чешуекрылых. Энтомолог расскажет, по каким признакам можно отличать опасных и безобидных насекомых. На занятии будет представлен мир науки, в который погружаются учёные-энтомологи, чтобы определить вид насекомого.<\/p><p>Занятие проходит в экспозиции «Природа Ярославского края».<\/p>",
+                                    "ageRestriction": 0,
+                                    "isFree": false,
+                                    "price": 100,
+                                    "maxPrice": 100,
+                                    "status": "accepted",
+                                    "start": "2021-03-24T11:00:00.000Z",
+                                    "end": "2021-03-26T11:45:00.000Z",
+                                    "tags": [
+                                        {
+                                            "id": 22,
+                                            "name": "Естественные науки",
+                                            "sysName": "estestvennye-nauki"
+                                        },
+                                        {
+                                            "id": 39,
+                                            "name": "Для детей",
+                                            "sysName": "dlya-detey"
+                                        },
+                                        {
+                                            "id": 714,
+                                            "name": "Природа",
+                                            "sysName": "priroda"
+                                        }
+                                    ],
+                                    "image": {
+                                        "url": "https:\/\/all.culture.ru\/uploads\/195c897284f07da047f99da5a738a611.jpeg",
+                                        "title": "IMG_5746.JPG"
+                                    },
+                                    "category": {
+                                        "type": "events",
+                                        "name": "Встречи",
+                                        "sysName": "vstrechi"
+                                    },
+                                    "organization": {
+                                        "id": 7746,
+                                        "name": "ГАУК ЯО «Ярославский государственный историко-архитектурный и художественный музей-заповедник»",
+                                        "type": "mincult",
+                                        "subordinationIds": [
+                                            202,
+                                            1
+                                        ],
+                                        "subordination": {
+                                            "name": "Ярославская область",
+                                            "timezone": "Europe\/Moscow",
+                                            "sysName": "yaroslavskaya-oblast",
+                                            "id": 202
+                                        },
+                                        "localeIds": [],
+                                        "locale": {
+                                            "name": "Ярославль",
+                                            "timezone": "Europe\/Moscow",
+                                            "sysName": "yaroslavl",
+                                            "id": 1248
+                                        }
+                                    },
+                                    "places": [
+                                        {
+                                            "id": 12863,
+                                            "name": "Ярославский историко-архитектурный музей-заповедник",
+                                            "address": {
+                                                "street": "пл Богоявленская,д 25",
+                                                "comment": "до остановки «Богоявленская площадь» или «ул. Первомайская» или «ул. Комсомольская»",
+                                                "fiasHouseId": "98838abd-5f47-4f4a-96df-6f01b2eccf98",
+                                                "fiasStreetId": "d2589b05-9b1e-4892-b462-08efe2ad1f4c",
+                                                "fullAddress": "обл Ярославская,г Ярославль,пл Богоявленская,д 25",
+                                                "mapPosition": {
+                                                    "type": "Point",
+                                                    "coordinates": [
+                                                        57.621132,
+                                                        39.88864799999999
+                                                    ]
+                                                }
+                                            },
+                                            "category": {
+                                                "name": "Музеи и галереи",
+                                                "sysName": "muzei-i-galerei"
+                                            },
+                                            "externalInfo": [],
+                                            "gallery": [],
+                                            "image": {
+                                                "url": "https:\/\/all.culture.ru\/uploads\/86508bc5f4de7bbab205c39bc674baa0.JPG",
+                                                "title": "P1000359.JPG"
+                                            },
+                                            "localeIds": [
+                                                1248,
+                                                202,
+                                                1
+                                            ],
+                                            "locale": {
+                                                "name": "Ярославль",
+                                                "timezone": "Europe\/Moscow",
+                                                "sysName": "yaroslavl",
+                                                "id": 1248
+                                            },
+                                            "recommendations": [],
+                                            "tags": [],
+                                            "videoHostings": []
+                                        }
+                                    ],
+                                    "seances": [
+                                        {
+                                            "start": "2021-03-24T11:00:00Z",
+                                            "end": "2021-03-24T11:45:00Z"
+                                        },
+                                        {
+                                            "start": "2021-03-26T11:00:00Z",
+                                            "end": "2021-03-26T11:45:00Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "updateSession": "60527da3baf2b02d038cc0e4"
+                }
+            ],
+            "status": 2,
+            "errorFields": [
+                {
+                    "keyword": "type",
+                    "dataPath": ".general.places[0].address.mapPosition.coordinates[0]",
+                    "schemaPath": "#\/properties\/general\/properties\/places\/items\/properties\/address\/properties\/mapPosition\/properties\/coordinates\/items\/type",
+                    "params": {
+                        "type": "array"
+                    },
+                    "message": "should be array"
+                }
+            ]
+        }
+    ],
+    "count": 5
+}
