@@ -1,0 +1,159 @@
+:root {
+    --primary: #2BB398;
+    --secondary: #82B3E1;
+    --accent: #F5B5CC;
+    --danger: #EB5E5A;
+    --warning: #FBB92A;
+    --light: #FAF5EE;
+    --dark: #333333;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Хедер */
+.navbar-custom {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar-brand img{
+    max-width: 30px;
+    max-height: 30px;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.9) !important;
+}
+
+.nav-link:hover {
+    color: white !important;
+}
+
+/* Футер */
+.footer {
+    background-color: var(--dark);
+    color: white;
+    padding: 3rem 0 1.5rem;
+    margin-top: 4rem;
+}
+
+/* Карточки мероприятий */
+.event-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-bottom: 1.5rem;
+    height: 100%;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.event-image {
+    height: 200px;
+    background: linear-gradient(45deg, var(--secondary), var(--accent));
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.event-age {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--warning);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.event-free {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--primary);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.event-category {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--dark);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.event-city {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.event-date {
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+/* Кнопки */
+.btn-primary-custom {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.btn-primary-custom:hover {
+    background-color: #229c82;
+    border-color: #229c82;
+}
+
+/* Поиск и фильтры */
+.search-section {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.form-control:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 0.25rem rgba(130, 179, 225, 0.25);
+}
+
+/* Цвета для отзывов */
+.review-positive { color: var(--primary); }
+.review-neutral { color: var(--warning); }
+.review-negative { color: var(--danger); }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .event-card {
+        margin-bottom: 1rem;
+    }
+}

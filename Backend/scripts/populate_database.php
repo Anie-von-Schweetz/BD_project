@@ -3,7 +3,7 @@ require_once __DIR__ . '/../includes/ApiClient.php';
 require_once __DIR__ . '/../includes/Database.php';
 
 $config = [
-    'api_key' => '8864d0ddbee51acdf5f923f5cab025bd665f26e5c67a07e44d81af5eb8a7b29e',
+    'api_key' => '425f0a8a7105824d7608fb1690b08c96b027fc3271710212b25976c242cd74e5',
     'db_host' => 'localhost',
     'db_user' => 'root',
     'db_pass' => '',
