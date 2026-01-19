@@ -146,7 +146,7 @@ class ApiClient {
             $events[] = [
                 'id' => (int)($general['id'] ?? 0),
                 'title' => $general['name'] ?? '',
-                'description' => strip_tags($general['description'] ?? ''),
+                'description' => str_replace(array("\r", "\n"), ' ', strip_tags($general['description']) ?? ''),
                 'age' => $age,
                 'ageCategory' => $ageCategory,
                 'startDate' => $startDate,

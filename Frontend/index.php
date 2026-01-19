@@ -29,6 +29,8 @@ $totalPages = $data['pages'] ?? 1;
 // Получаем уникальные города и категории для фильтров
 $cities = $api->getUniqueCities();
 $categories = $api->getUniqueCategories();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -229,7 +231,7 @@ $categories = $api->getUniqueCategories();
                                                 <span class="badge bg-info"><?= htmlspecialchars($event['category']) ?></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 mb-0">
                                             <p><strong>Описание:</strong></p>
                                             <p><?= nl2br(htmlspecialchars($event['description'])) ?></p>
                                             <hr>
