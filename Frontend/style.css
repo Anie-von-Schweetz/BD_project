@@ -256,6 +256,23 @@ color: #dc3545;
 
 
 /*==== СТРАНИЦА АККАУНТА ======*/
+.container-logout{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.btn-logout{
+    background-color: var(--danger);
+    border-color: var(--danger);
+}
+
+.btn-logout:hover{
+    background-color: #e2352f;
+    border-color: #e2352f;
+    color: white;
+}
+
 .account-container {
     max-width: 1200px;
     margin: 40px auto;

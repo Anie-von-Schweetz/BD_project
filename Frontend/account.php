@@ -55,8 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_subscription'])
     $is_free_only = isset($_POST['is_free_only']) ? 1 : 0;
     $price_max = !empty($_POST['price_max']) ? intval($_POST['price_max']) : null;
     
-
-    $updateStmt = $connection->prepare("UPDATE subscriptions SET subname = ?, city = ?, age = ?, event_categories = ?, is_free_only = ?, price_max = ? WHERE id = ? AND user_id = ?");    $stmt->bind_param("issssss", $_SESSION['user_id'], $subname, $city, $age, $event_categories, $is_free_only, $price_max);
+    $updateStmt = $connection->prepare("UPDATE subscriptions SET subname = ?, city = ?, age = ?, event_categories = ?, is_free_only = ?, price_max = ? WHERE id = ? AND user_id = ?");
     $updateStmt->bind_param("ssisiiii", $subname, $city, $age, $event_categories, $is_free_only, $price_max, $id, $_SESSION['user_id']);
 
     if ($updateStmt->execute()) {
@@ -150,15 +149,25 @@ if (isset($_GET['success'])) {
     <title>Культурный навигатор | Мой аккаунт</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="img/icon.ico">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <?php include 'header.php'; ?>
 
     <main class="container py-4">
-        <h1 class="mb-4">Мой аккаунт</h1>
+        <div class="account-str row">
+            <div class="col">
+                <h1 class="mb-4">Мой аккаунт</h1>
+            </div>    
+            <div class="col-md-6 container-logout">
+                <a href="logout.php" class="btn btn-primary-custom btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Выйти из аккаунта
+                </a>
+            </div>
+        </div>
         
-                <!-- Информация о пользователе -->
+        <!-- Информация о пользователе -->
         <div class="user-info-card">
             <div class="row">
                 <div class="col-md-6">
@@ -234,7 +243,8 @@ if (isset($_GET['success'])) {
                                     <select class="form-select" name="city">
                                         <option value="">Все города</option>
                                         <?php foreach ($cities as $city): ?>
-                                            <option value="<?= htmlspecialchars($city) ?>">
+                                            <option value="<?= htmlspecialchars($city) ?>"
+                                            <?= (isset($edit_subscription) && $edit_subscription['city'] == $city) ? 'selected' : '' ?>>
                                             <?= htmlspecialchars($city) ?></option>
                                         <?php endforeach; ?>
                                     </select>
