@@ -30,7 +30,99 @@ $totalPages = $data['pages'] ?? 1;
 $cities = $api->getUniqueCities();
 $categories = $api->getUniqueCategories();
 
+// ================== ОБРАБОТКА ДОБАВЛЕНИЯ КОММЕНТАРИЯ ==================
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_review'])) {
+    session_start();
+    
+    if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+        require_once __DIR__ . '/../Backend/database.php';
+        $connection = connectDB();
+        
+        $user_id = $_SESSION['user_id'];
+        $event_id = intval($_POST['event_id'] ?? 0);
+        $text = trim($_POST['review_text'] ?? '');
+        $sentiment = $_POST['sentiment'] ?? 'neutral';
 
+        // Проверяем, не оставлял ли уже пользователь отзыв на это мероприятие
+        $checkStmt = $connection->prepare("SELECT id FROM reviews WHERE user_id = ? AND event_id = ?");
+        $checkStmt->bind_param("ii", $user_id, $event_id);
+        $checkStmt->execute();
+        $checkResult = $checkStmt->get_result();
+        
+        if ($checkResult->num_rows > 0) {
+            $_SESSION['review_error'] = 'Вы уже оставляли отзыв на это мероприятие';
+        } else {
+            // Добавляем комментарий
+            $stmt = $connection->prepare("INSERT INTO reviews (user_id, event_id, text, sentiment) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("iiss", $user_id, $event_id, $text, $sentiment);
+            
+            if ($stmt->execute()) {
+                $_SESSION['review_success'] = 'Ваш отзыв успешно добавлен!';
+            } else {
+                $_SESSION['review_error'] = 'Ошибка при добавлении отзыва: ' . $stmt->error;
+            }
+            $stmt->close();
+        }
+        $checkStmt->close();
+        $connection->close();
+        
+        // Редирект обратно на ту же страницу
+        header('Location: ' . $_SERVER['HTTP_REFERER'] . '#eventModal' . $event_id);
+        exit();
+    } else {
+        $_SESSION['review_error'] = 'Для добавления отзыва необходимо авторизоваться';
+        header('Location: login.php');
+        exit();
+    }
+}
+
+// ================== ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ КОММЕНТАРИЕВ ==================
+function getEventReviews($event_id) {
+    require_once __DIR__ . '/../Backend/database.php';
+    $connection = connectDB();
+    
+    $reviews = [];
+    
+    $stmt = $connection->prepare("
+        SELECT r.*, u.username 
+        FROM reviews r 
+        JOIN users u ON r.user_id = u.id 
+        WHERE r.event_id = ? 
+        ORDER BY r.created_at DESC
+    ");
+    $stmt->bind_param("i", $event_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    while ($row = $result->fetch_assoc()) {
+        $reviews[] = $row;
+    }
+    
+    $stmt->close();
+    $connection->close();
+    
+    return $reviews;
+}
+
+// ================== ФУНКЦИЯ ДЛЯ ОПРЕДЕЛЕНИЯ ЦВЕТА КОММЕНТАРИЯ ==================
+function getReviewColor($sentiment) {
+    switch ($sentiment) {
+        case 'positive':
+            return '#7ce9d3'; // Зеленоватый
+        case 'neutral':
+            return '#ffda89'; // Желтый
+        case 'negative':
+            return '#F5B5CC'; // Розовый
+        default:
+            return '#e9ecef'; // Серый по умолчанию
+    }
+}
+
+// Проверяем сообщения об ошибках/успехе из сессии
+session_start();
+$review_error = $_SESSION['review_error'] ?? '';
+$review_success = $_SESSION['review_success'] ?? '';
+unset($_SESSION['review_error'], $_SESSION['review_success']);
 ?>
 
 <!DOCTYPE html>
@@ -145,122 +237,222 @@ $categories = $api->getUniqueCategories();
                     </div>
                 <?php else: ?>
                     <?php foreach ($events as $event): ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 event-card">
-                            <?php if (!empty($event['image'])): ?>
-                                <img src="<?= htmlspecialchars($event['image']) ?>" 
-                                    class="card-img-top" 
-                                    alt="<?= htmlspecialchars($event['title']) ?>"
-                                    style="height: 200px; object-fit: cover;">
-                            <?php else: ?>
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
-                                    style="height: 200px;">
-                                    <i class="fas fa-calendar-alt fa-3x text-secondary"></i>
-                                </div>
-                            <?php endif; ?>
-                            
-                            <div class="card-body d-flex flex-column">
-                                <div class="mb-2">
-                                    <span class="badge bg-secondary me-1">
-                                        <?= htmlspecialchars($event['ageCategory']) ?>
-                                    </span>
-                                    <?php if ($event['isFree']): ?>
-                                        <span class="badge bg-success">Бесплатно</span>
-                                    <?php endif; ?>
-                                </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 event-card">
+                                <?php if (!empty($event['image'])): ?>
+                                    <img src="<?= htmlspecialchars($event['image']) ?>" 
+                                        class="card-img-top" 
+                                        alt="<?= htmlspecialchars($event['title']) ?>"
+                                        style="height: 200px; object-fit: cover;">
+                                <?php else: ?>
+                                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                                        style="height: 200px;">
+                                        <i class="fas fa-calendar-alt fa-3x text-secondary"></i>
+                                    </div>
+                                <?php endif; ?>
                                 
-                                <h5 class="card-title"><?= htmlspecialchars($event['title']) ?></h5>
-                                <p class="card-text flex-grow-1">
-                                    <?= htmlspecialchars(mb_substr($event['description'], 0, 100)) ?>
-                                    <?= mb_strlen($event['description']) > 100 ? '...' : '' ?>
-                                </p>
-
-                                <?php if (!$event['isFree']): ?>
-                                    <p class="card-price">от <?= htmlspecialchars($event['price']) ?>₽</p>
-                                <?php endif; ?>    
-                                
-                                <div class="mt-auto">
-                                    <p class="mb-1">
-                                        <i class="fas fa-map-marker-alt me-1"></i>
-                                        <?= htmlspecialchars($event['city']) ?>
-                                    </p>
-                                    <p class="mb-1">
-                                        <i class="fas fa-tag me-1"></i>
-                                        <?= htmlspecialchars($event['category']) ?>
-                                    </p>
-                                    <?php if ($event['startDate']): ?>
-                                        <p class="mb-3 text-muted small">
-                                            <i class="fas fa-clock me-1"></i>
-                                            <?= htmlspecialchars($event['startDate']) ?>
-                                        </p>
-                                    <?php endif; ?>
+                                <div class="card-body d-flex flex-column">
+                                    <div class="mb-2">
+                                        <span class="badge bg-secondary me-1">
+                                            <?= htmlspecialchars($event['ageCategory']) ?>
+                                        </span>
+                                        <?php if ($event['isFree']): ?>
+                                            <span class="badge bg-success">Бесплатно</span>
+                                        <?php endif; ?>
+                                    </div>
                                     
-                                    <button class="btn btn-primary-custom w-100" data-bs-toggle="modal" data-bs-target="#eventModal<?= $event['id'] ?>">
-                                        Подробнее
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <h5 class="card-title"><?= htmlspecialchars($event['title']) ?></h5>
+                                    <p class="card-text flex-grow-1">
+                                        <?= htmlspecialchars(mb_substr($event['description'], 0, 100)) ?>
+                                        <?= mb_strlen($event['description']) > 100 ? '...' : '' ?>
+                                    </p>
 
-                    <!-- Модальное окно для деталей события -->
-                    <div class="modal fade" id="eventModal<?= $event['id'] ?>" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title"><?= htmlspecialchars($event['title']) ?></h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <?php if (!empty($event['image'])): ?>
-                                                <img src="<?= htmlspecialchars($event['image']) ?>" 
-                                                     class="img-fluid rounded mb-3" 
-                                                     alt="<?= htmlspecialchars($event['title']) ?>">
-                                            <?php endif; ?>
-                                            <div class="mb-3">
-                                                <span class="badge bg-primary me-1">
-                                                    <?= htmlspecialchars($event['ageCategory']) ?>
-                                                </span>
-                                                <?php if ($event['isFree']): ?>
-                                                    <span class="badge bg-success">Бесплатно</span>
-                                                <?php else: ?>
-                                                    <span class="badge bg-warning text-dark">Платно</span>
-                                                <?php endif; ?>
-                                                <span class="badge bg-info"><?= htmlspecialchars($event['category']) ?></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-0">
-                                            <p><strong>Описание:</strong></p>
-                                            <p><?= nl2br(htmlspecialchars($event['description'])) ?></p>
-                                            <hr>
-                                            <p><i class="fas fa-map-marker-alt me-2"></i> <strong>Город:</strong> <?= htmlspecialchars($event['city']) ?></p>
-                                            <?php if (!empty($event['place'])): ?>
-                                                <p><i class="fas fa-building me-2"></i> <strong>Место:</strong> <?= htmlspecialchars($event['place']) ?></p>
-                                            <?php endif; ?>
-                                            <?php if (!empty($event['address'])): ?>
-                                                <p><i class="fas fa-map-pin me-2"></i> <strong>Адрес:</strong> <?= htmlspecialchars($event['address']) ?></p>
-                                            <?php endif; ?>
-                                            <p><i class="fas fa-calendar-alt me-2"></i> <strong>Начало:</strong> <?= htmlspecialchars($event['startDate']) ?></p>
-                                            <?php if (!empty($event['endDate'])): ?>
-                                                <p><i class="fas fa-calendar-times me-2"></i> <strong>Окончание:</strong> <?= htmlspecialchars($event['endDate']) ?></p>
-                                            <?php endif; ?>
-                                            <?php if (!empty($event['organizer'])): ?>
-                                                <p><i class="fas fa-users me-2"></i> <strong>Организатор:</strong> <?= htmlspecialchars($event['organizer']) ?></p>
-                                            <?php endif; ?>
-                                        </div>
+                                    <?php if (!$event['isFree']): ?>
+                                        <p class="card-price">от <?= htmlspecialchars($event['price']) ?>₽</p>
+                                    <?php endif; ?>    
+                                    
+                                    <div class="mt-auto">
+                                        <p class="mb-1">
+                                            <i class="fas fa-map-marker-alt me-1"></i>
+                                            <?= htmlspecialchars($event['city']) ?>
+                                        </p>
+                                        <p class="mb-1">
+                                            <i class="fas fa-tag me-1"></i>
+                                            <?= htmlspecialchars($event['category']) ?>
+                                        </p>
+                                        <?php if ($event['startDate']): ?>
+                                            <p class="mb-3 text-muted small">
+                                                <i class="fas fa-clock me-1"></i>
+                                                <?= htmlspecialchars($event['startDate']) ?>
+                                            </p>
+                                        <?php endif; ?>
+                                        
+                                        <button class="btn btn-primary-custom w-100" data-bs-toggle="modal" data-bs-target="#eventModal<?= $event['id'] ?>">
+                                            Подробнее
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                </div>
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
+        <!-- Модальное окно для деталей события -->
+            <?php foreach ($events as $event): ?>
+                <div class="modal fade" id="eventModal<?= $event['id'] ?>" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><?= htmlspecialchars($event['title']) ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php if (!empty($event['image'])): ?>
+                                            <img src="<?= htmlspecialchars($event['image']) ?>" 
+                                                    class="img-fluid rounded mb-3" 
+                                                    alt="<?= htmlspecialchars($event['title']) ?>">
+                                        <?php endif; ?>
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary me-1">
+                                                <?= htmlspecialchars($event['ageCategory']) ?>
+                                            </span>
+                                            <?php if ($event['isFree']): ?>
+                                                <span class="badge bg-success">Бесплатно</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-warning text-dark">Платно</span>
+                                            <?php endif; ?>
+                                            <span class="badge bg-info"><?= htmlspecialchars($event['category']) ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-0">
+                                        <p><strong>Описание:</strong></p>
+                                        <p><?= nl2br(htmlspecialchars($event['description'])) ?></p>
+                                        <hr>
+                                        <p><i class="fas fa-map-marker-alt me-2"></i> <strong>Город:</strong> <?= htmlspecialchars($event['city']) ?></p>
+                                        <?php if (!empty($event['place'])): ?>
+                                            <p><i class="fas fa-building me-2"></i> <strong>Место:</strong> <?= htmlspecialchars($event['place']) ?></p>
+                                        <?php endif; ?>
+                                        <?php if (!empty($event['address'])): ?>
+                                            <p><i class="fas fa-map-pin me-2"></i> <strong>Адрес:</strong> <?= htmlspecialchars($event['address']) ?></p>
+                                        <?php endif; ?>
+                                        <p><i class="fas fa-calendar-alt me-2"></i> <strong>Начало:</strong> <?= htmlspecialchars($event['startDate']) ?></p>
+                                        <?php if (!empty($event['endDate'])): ?>
+                                            <p><i class="fas fa-calendar-times me-2"></i> <strong>Окончание:</strong> <?= htmlspecialchars($event['endDate']) ?></p>
+                                        <?php endif; ?>
+                                        <?php if (!empty($event['organizer'])): ?>
+                                            <p><i class="fas fa-users me-2"></i> <strong>Организатор:</strong> <?= htmlspecialchars($event['organizer']) ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <!-- Раздел комментариев -->
+                                <div class="row">
+                                    <div class="reviews-section mt-4">
+                                        <div class="reviews-title">
+                                            <i class="fas fa-comments me-2"></i>Отзывы посетителей
+                                            <small class="text-muted ms-2">
+                                                <?php 
+                                                    $event_reviews = getEventReviews($event['id']);
+                                                    echo '(' . count($event_reviews) . ')';
+                                                ?>
+                                            </small>
+                                        </div>
+                                        
+                                        <!-- Список комментариев -->
+                                        <div class="reviews-list mb-4">
+                                            <?php if (empty($event_reviews)): ?>
+                                                <div class="no-reviews">
+                                                    <i class="fas fa-comment-slash fa-2x mb-3"></i>
+                                                    <p>Пока нет отзывов. Будьте первым, кто оставит отзыв!</p>
+                                                </div>
+                                            <?php else: ?>
+                                                <?php foreach ($event_reviews as $review): ?>
+                                                    <div class="review-container" style="background-color: <?= getReviewColor($review['sentiment']) ?>; border-left-color: <?= getReviewColor($review['sentiment']) ?>;">
+                                                        <div class="review-header">
+                                                            <div class="review-author">
+                                                                <span class="sentiment-badge" style="background-color: <?= getReviewColor($review['sentiment']) ?>;"></span>
+                                                                <?= htmlspecialchars($review['username']) ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-text">
+                                                            <?= nl2br(htmlspecialchars($review['text'])) ?>
+                                                        </div>
+                                                        <div class="review-date">
+                                                            <?= date('d.m.Y H:i', strtotime($review['created_at'])) ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                        
+                                        <!-- Кнопка добавления комментария -->
+                                        <?php if (isset($_SESSION['user_id'])): ?>
+                                            <button class="btn btn-outline-primary add-review-btn" type="button" 
+                                                    data-bs-toggle="collapse" data-bs-target="#reviewForm<?= $event['id'] ?>"
+                                                    aria-expanded="false" aria-controls="reviewForm<?= $event['id'] ?>">
+                                                <i class="fas fa-pen me-1"></i>Написать отзыв
+                                            </button>
+                                            
+                                            <!-- Форма добавления комментария -->
+                                            <div class="collapse mt-3" id="reviewForm<?= $event['id'] ?>">
+                                                <div class="review-form-container">
+                                                    <h6 class="mb-3">Добавить отзыв</h6>
+                                                    <form method="POST" action="">
+                                                        <input type="hidden" name="event_id" value="<?= $event['id'] ?>">
+                                                        
+                                                        <div class="mb-3">
+                                                            <label for="sentiment<?= $event['id'] ?>" class="form-label">Характер вашего отзыва</label>
+                                                            <select class="form-select" id="sentiment<?= $event['id'] ?>" name="sentiment" required>
+                                                                <option value="">Выберите тип отзыва</option>
+                                                                <option value="positive">😊 Позитивный</option>
+                                                                <option value="neutral">😐 Нейтральный</option>
+                                                                <option value="negative">😔 Негативный</option>
+                                                            </select>
+                                                            <div class="form-text">
+                                                                <span class="me-3"><span class="sentiment-badge" style="background-color: #7ce9d3;"></span> Позитивный</span>
+                                                                <span class="me-3"><span class="sentiment-badge" style="background-color: #ffda89;"></span> Нейтральный</span>
+                                                                <span><span class="sentiment-badge" style="background-color: #F5B5CC;"></span> Негативный</span>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="mb-3">
+                                                            <label for="reviewText<?= $event['id'] ?>" class="form-label">Текст отзыва</label>
+                                                            <textarea class="form-control" id="reviewText<?= $event['id'] ?>" 
+                                                                    name="review_text" rows="3" 
+                                                                    placeholder="Поделитесь вашими впечатлениями..." 
+                                                                    required></textarea>
+                                                        </div>
+                                                        
+                                                        <div class="d-flex justify-content-between">
+                                                            <button type="button" class="btn btn-outline-secondary" 
+                                                                    data-bs-toggle="collapse" 
+                                                                    data-bs-target="#reviewForm<?= $event['id'] ?>">
+                                                                Отмена
+                                                            </button>
+                                                            <button type="submit" name="add_review" class="btn btn-primary-custom">
+                                                                <i class="fas fa-paper-plane me-1"></i>Отправить отзыв
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="alert alert-info mt-3">
+                                                <i class="fas fa-info-circle me-2"></i>
+                                                Чтобы оставить отзыв, пожалуйста, <a href="login.php" class="alert-link">авторизуйтесь</a>.
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
         
         <!-- Пагинация -->
@@ -278,6 +470,8 @@ $categories = $api->getUniqueCategories();
             </ul>
         </nav>
         <?php endif; ?>
+
+        
     </main>
 
     <!-- Футер -->
@@ -320,6 +514,6 @@ $categories = $api->getUniqueCategories();
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 </body>
 </html>
