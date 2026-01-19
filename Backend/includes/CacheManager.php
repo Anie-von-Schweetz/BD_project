@@ -2,78 +2,40 @@
 // includes/CacheManager.php
 class CacheManager {
     private $cacheDir;
+    private $cacheTime;
     
-    public function __construct($cacheDir = null) {
-        $this->cacheDir = $cacheDir ?? __DIR__ . '/../cache/';
+    public function __construct($dir = null, $time = null) {
+        $this->cacheDir = $dir ?: CACHE_DIR;
+        $this->cacheTime = $time ?: CACHE_TIME;
         
-        // Создаём папку кэша если нет
         if (!file_exists($this->cacheDir)) {
-            mkdir($this->cacheDir, 0755, true);
+            mkdir($this->cacheDir, 0777, true);
         }
     }
     
-    /**
-     * Получить данные из кэша
-     */
-    public function get($key, $ttl = 3600) {
-        $filename = $this->getFilename($key);
+    public function get($key) {
+        $file = $this->cacheDir . md5($key) . '.json';
         
-        if (!file_exists($filename)) {
-            return null;
+        if (file_exists($file) && (time() - filemtime($file)) < $this->cacheTime) {
+            $data = file_get_contents($file);
+            return json_decode($data, true);
         }
         
-        // Проверяем срок годности
-        if (time() - filemtime($filename) > $ttl) {
-            unlink($filename); // Удаляем просроченный кэш
-            return null;
-        }
-        
-        $content = file_get_contents($filename);
-        return json_decode($content, true);
+        return null;
     }
     
-    /**
-     * Сохранить данные в кэш
-     */
     public function set($key, $data) {
-        $filename = $this->getFilename($key);
-        $content = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        
-        return file_put_contents($filename, $content) !== false;
+        $file = $this->cacheDir . md5($key) . '.json';
+        file_put_contents($file, json_encode($data, JSON_UNESCAPED_UNICODE));
     }
     
-    /**
-     * Очистить кэш
-     */
-    public function clear($key = null) {
-        if ($key) {
-            // Удалить конкретный файл
-            $filename = $this->getFilename($key);
-            if (file_exists($filename)) {
-                unlink($filename);
-            }
-        } else {
-            // Удалить все файлы кэша
-            $files = glob($this->cacheDir . '*.json');
-            foreach ($files as $file) {
+    public function clearOld() {
+        $files = glob($this->cacheDir . '*.json');
+        foreach ($files as $file) {
+            if ((time() - filemtime($file)) > $this->cacheTime) {
                 unlink($file);
             }
         }
-    }
-    
-    /**
-     * Сгенерировать ключ кэша на основе фильтров
-     */
-    public function generateKey($filters) {
-        // Убираем limit и offset из ключа (они не влияют на данные)
-        $keyFilters = $filters;
-        unset($keyFilters['limit'], $keyFilters['offset']);
-        
-        return 'events_' . md5(json_encode($keyFilters));
-    }
-    
-    private function getFilename($key) {
-        return $this->cacheDir . $key . '.json';
     }
 }
 ?>
