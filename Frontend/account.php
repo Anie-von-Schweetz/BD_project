@@ -8,6 +8,7 @@ require_once __DIR__ . '/../Backend/includes/ApiClient.php';
 
 $error = '';
 $success = '';
+$show_form = false;
 
 // ================== ПОЛУЧЕНИЕ ДАННЫХ ПОЛЬЗОВАТЕЛЯ ==================
 $user_id = $_SESSION['user_id'] ?? 0;
@@ -30,6 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['create_subscription'])
     $stmt = $connection->prepare("INSERT INTO subscriptions (user_id, subname, city, age, event_categories, is_free_only, price_max) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("issssss", $_SESSION['user_id'], $subname, $city, $age, $event_categories, $is_free_only, $price_max);
     
+    if ($stmt->execute()) {
+        $success = 'Подписка успешно создана!';
+        
+        // Обновляем страницу
+        header('Location: account.php?success=created');
+        exit();
+    } else {
+        $error = 'Ошибка при создании подписки: ' . $connection->error;
+        echo "<!-- DEBUG SQL Error: " . $connection->error . " -->";
+    }
     $stmt->close();
 }
 
@@ -46,9 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_subscription'])
     
 
     $updateStmt = $connection->prepare("UPDATE subscriptions SET subname = ?, city = ?, age = ?, event_categories = ?, is_free_only = ?, price_max = ? WHERE id = ? AND user_id = ?");    $stmt->bind_param("issssss", $_SESSION['user_id'], $subname, $city, $age, $event_categories, $is_free_only, $price_max);
-    $updateStmt->bind_param("ssisiiii", $subname, $city, $age, $event_categories, $is_free_only, $price_max, $id, $user_id);
+    $updateStmt->bind_param("ssisiiii", $subname, $city, $age, $event_categories, $is_free_only, $price_max, $id, $_SESSION['user_id']);
 
-    $stmt->close();
+    if ($updateStmt->execute()) {
+        $success = 'Подписка успешно обновлена!';           
+        header('Location: account.php?success=updated');
+        exit();
+    } else {
+        $error = 'Ошибка при обновлении подписки: ' . $connection->error;
+    }
+
+    $updateStmt->close();
 }
 
 // ================== УДАЛЕНИЕ ПОДПИСКИ ==================
@@ -112,6 +131,15 @@ if ($user_id > 0) {
 
 $connection->close();
 
+// ================== СООБЩЕНИЯ ИЗ GET ==================
+if (isset($_GET['success'])) {
+    switch ($_GET['success']) {
+        case 'created': $success = 'Подписка успешно создана!'; break;
+        case 'updated': $success = 'Подписка успешно обновлена!'; break;
+        case 'deleted': $success = 'Подписка успешно удалена!'; break;
+    }
+}
+
 // ================== HTML ==================
 ?>
 <!DOCTYPE html>
@@ -171,7 +199,7 @@ $connection->close();
         <!-- Простая форма как на главной -->
         <div class="card mb-4">
             <div class="card-body">
-                <button class="btn btn-primary-custom" type="button" data-bs-toggle="collapse" 
+                <button class="btn btn-primary-custom mb-2" type="button" data-bs-toggle="collapse" 
                     data-bs-target="#subscriptionFormCollapse" 
                     aria-expanded="<?= $show_form ? 'true' : 'false' ?>"
                     aria-controls="subscriptionFormCollapse">
@@ -186,104 +214,192 @@ $connection->close();
                             <i class="fas fa-bell me-2"></i>
                             <?= isset($edit_subscription) ? 'Редактировать подписку' : 'Настройка подписки' ?>
                         </h3>
-                        
-                        <form method="POST">
+
+                        <form method="POST" action="">
+
+                            <?php if (isset($edit_subscription)): ?>
+                                <input type="hidden" name="subscription_id" value="<?= $edit_subscription['id'] ?>">
+                            <?php endif; ?>
+
                             <div class="mb-3">
                                 <label class="form-label required-field">Название подписки</label>
-                                <input type="text" class="form-control" name="subname" required>
+                                <input type="text" class="form-control" name="subname" required
+                                value="<?= isset($edit_subscription) ? htmlspecialchars($edit_subscription['subname']) : '' ?>">
                             </div>
                             
                             <div class="row g-3 mb-3">
+                                <!-- Город -->
                                 <div class="col-md-6">
                                     <label class="form-label">Город</label>
                                     <select class="form-select" name="city">
                                         <option value="">Все города</option>
                                         <?php foreach ($cities as $city): ?>
-                                            <option value="<?= htmlspecialchars($city) ?>"><?= htmlspecialchars($city) ?></option>
+                                            <option value="<?= htmlspecialchars($city) ?>">
+                                            <?= htmlspecialchars($city) ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 
+                                <!-- Возраст ребенка -->
                                 <div class="col-md-6">
                                     <label class="form-label">Возраст ребёнка</label>
                                     <select class="form-select" name="age">
                                         <option value="0">Любой возраст</option>
-                                        <option value="0">0+</option>
-                                        <option value="6">6+</option>
-                                        <option value="12">12+</option>
-                                        <option value="16">16+</option>
+                                        <option value="0"
+                                        <?= (isset($edit_subscription) && $edit_subscription['age'] == 0) ? 'selected' : '' ?>>
+                                        0+</option>
+                                        <option value="6"
+                                        <?= (isset($edit_subscription) && $edit_subscription['age'] == 6) ? 'selected' : '' ?>>
+                                        6+</option>
+                                        <option value="12"
+                                        <?= (isset($edit_subscription) && $edit_subscription['age'] == 12) ? 'selected' : '' ?>>
+                                        12+</option>
+                                        <option value="16"
+                                        <?= (isset($edit_subscription) && $edit_subscription['age'] == 16) ? 'selected' : '' ?>>
+                                        16+</option>
+                                    </select>
+                                </div>
+
+                                <!-- Категория -->                
+                                <div class="mb-3">
+                                    <label class="form-label required-field">Категория мероприятия</label>
+                                    <select class="form-select" name="event_categories" required>
+                                        <option value="">Выберите категорию</option>
+                                            <?php foreach ($categories as $category): ?>
+                                            <option value="<?= htmlspecialchars($category) ?>"
+                                                <?= (isset($edit_subscription) && $edit_subscription['event_categories'] == $category) ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($category) ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
                             
+
                             <div class="mb-3">
-                                <label class="form-label required-field">Категория мероприятия</label>
-                                <select class="form-select" name="event_categories" required>
-                                    <option value="">Выберите категорию</option>
-                                    <option value="Кино">Кино</option>
-                                    <option value="Театр">Театр</option>
-                                    <option value="Выставка">Выставка</option>
-                                </select>
-                            </div>
-                            
-                            <div class="mb-3">
+                                <!-- Только бесплатные -->
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="is_free_only" value="1">
+                                    <input class="form-check-input" type="checkbox" name="is_free_only" value="1" <?= (isset($edit_subscription) && $edit_subscription['is_free_only']) ? 'checked' : '' ?>>
                                     <label class="form-check-label">Только бесплатные мероприятия</label>
                                 </div>
+
+                                <!-- Максимальная цена -->
+                                <div class="col-md-6">
+                                    <label for="price_max" class="form-label">Максимальная цена</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="price_max" name="price_max" min="0"
+                                            value="<?= isset($edit_subscription) ? htmlspecialchars($edit_subscription['price_max'] ?? '') : '' ?>">
+                                        <span class="input-group-text">руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Информационное сообщение -->
+                            <div class="alert alert-info mb-4">
+                                <i class="fas fa-info-circle me-2"></i>
+                                При появлении новых мероприятий, соответствующих указанным параметрам, вы будете получать уведомления на почту.
                             </div>
                             
-                            <button type="submit" name="create_subscription" class="btn btn-primary-custom">
-                                Создать подписку
-                            </button>
+                            <!-- Кнопки формы -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="account.php" class="btn btn-outline-secondary me-md-2">Отмена</a>
+                                <button type="submit" name="<?= isset($edit_subscription) ? 'update_subscription' : 'create_subscription' ?>" 
+                                        class="btn btn-primary-custom">
+                                    <?= isset($edit_subscription) ? 'Обновить подписку' : 'Создать подписку' ?>
+                                </button>
+                            </div>
                         </form>
-            </div>
-        </div>
-
-        <!-- Список подписок -->
-        <div class="card">
-            <div class="card-body">
-                <h3 class="mb-3"><i class="fas fa-bell me-2"></i>Мои подписки</h3>
-                
-                <?php if (empty($subscriptions)): ?>
-                    <p class="text-muted">У вас еще нет подписок.</p>
-                <?php else: ?>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Название</th>
-                                    <th>Город</th>
-                                    <th>Возраст</th>
-                                    <th>Категория</th>
-                                    <th>Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($subscriptions as $sub): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($sub['subname']) ?></td>
-                                    <td><?= htmlspecialchars($sub['city'] ?: 'Все') ?></td>
-                                    <td><?= $sub['age'] > 0 ? $sub['age'].'+' : 'Любой' ?></td>
-                                    <td><?= htmlspecialchars($sub['event_categories']) ?></td>
-                                    <td>
-                                        <a href="account.php?delete=<?= $sub['id'] ?>" 
-                                           class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('Удалить подписку?')">
-                                            Удалить
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    </div>    
+                </div>
+                <!-- Раздел подписок -->
+                <div class="subscriptions-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="mb-0">
+                            <i class="fas fa-bell me-2"></i>Мои подписки
+                        </h2>
                     </div>
-                <?php endif; ?>
+
+                    <!-- Список подписок -->
+                    <?php if (empty($subscriptions)): ?>
+                        <div class="empty-subscriptions">
+                            <i class="far fa-bell-slash"></i>
+                            <h4>У вас еще нет подписок</h4>
+                            <p>Создайте свою первую подписку, чтобы получать уведомления о новых мероприятиях</p>
+                        </div>
+                    <?php else: ?>
+                        <div class="row">
+                            <?php foreach ($subscriptions as $subscription): ?>
+                                <div class="col-md-6 mb-3">
+                                    <div class="subscription-card">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <h5 class="mb-2"><?= htmlspecialchars($subscription['subname']) ?></h5>
+                                        </div>
+                                        
+                                        <!-- Параметры подписки -->
+                                        <div class="subscription-params">
+                                            <?php if (!empty($subscription['city'])): ?>
+                                                <span class="param-badge">
+                                                    <i class="fas fa-city"></i> <?= htmlspecialchars($subscription['city']) ?>
+                                                </span>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ($subscription['age'] > 0): ?>
+                                                <span class="param-badge">
+                                                    <i class="fas fa-child"></i> <?= $subscription['age'] ?>+
+                                                </span>
+                                            <?php endif; ?>
+                                            
+                                            <?php if (!empty($subscription['event_categories'])): ?>
+                                                <span class="param-badge">
+                                                    <i class="fas fa-tag"></i> <?= htmlspecialchars($subscription['event_categories']) ?>
+                                                </span>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ($subscription['is_free_only']): ?>
+                                                <span class="param-badge">
+                                                    <i class="fas fa-coins"></i> Бесплатные
+                                                </span>
+                                            <?php elseif (!empty($subscription['price_max'])): ?>
+                                                <span class="param-badge">
+                                                    <i class="fas fa-ruble-sign"></i> До <?= $subscription['price_max'] ?> руб.
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                        
+                                        <p class="text-muted small mb-0">
+                                            <i class="far fa-clock me-1"></i>
+                                            Создана: <?= date('d.m.Y', strtotime($subscription['created_at'])) ?>
+                                        </p>
+                                        
+                                        <div class="subscription-actions">
+                                            <a href="account.php?edit=<?= $subscription['id'] ?>" 
+                                            class="btn btn-outline-primary-custom btn-sm">
+                                                <i class="fas fa-edit me-1"></i> Редактировать
+                                            </a>
+                                            <a href="account.php?delete=<?= $subscription['id'] ?>" 
+                                            class="btn btn-outline-danger btn-sm"
+                                            onclick="return confirm('Вы уверены, что хотите удалить подписку \"<?= htmlspecialchars(addslashes($subscription['subname'])) ?>\"?')">
+                                                <i class="fas fa-trash me-1"></i> Удалить
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <!-- Футер -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="text-center pt-3">
+                <p class="small mb-0">© 2024 Культурный навигатор. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
