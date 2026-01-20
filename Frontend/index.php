@@ -217,7 +217,7 @@ unset($_SESSION['review_error'], $_SESSION['review_success']);
                             </div>
                         </div>
                         <div class="mt-3 text-end">
-                            <a href="index.php" class="btn btn-outline-danger me-2">Сбросить</a>
+                            <a href="index.php" class="btn btn-outline me-2 btn-exit">Сбросить</a>
                             <button type="submit" class="btn btn-primary-custom">Применить фильтры</button>
                         </div>
                     </form>
@@ -253,11 +253,11 @@ unset($_SESSION['review_error'], $_SESSION['review_success']);
                                 
                                 <div class="card-body d-flex flex-column">
                                     <div class="mb-2">
-                                        <span class="badge bg-secondary me-1">
+                                        <span class="badge bg-secondary me-1 age-category">
                                             <?= htmlspecialchars($event['ageCategory']) ?>
                                         </span>
                                         <?php if ($event['isFree']): ?>
-                                            <span class="badge bg-success">Бесплатно</span>
+                                            <span class="badge bg-success free-category">Бесплатно</span>
                                         <?php endif; ?>
                                     </div>
                                     
@@ -315,15 +315,15 @@ unset($_SESSION['review_error'], $_SESSION['review_success']);
                                                     alt="<?= htmlspecialchars($event['title']) ?>">
                                         <?php endif; ?>
                                         <div class="mb-3">
-                                            <span class="badge bg-primary me-1">
+                                            <span class="badge bg-primary me-1 age-category">
                                                 <?= htmlspecialchars($event['ageCategory']) ?>
                                             </span>
                                             <?php if ($event['isFree']): ?>
-                                                <span class="badge bg-success">Бесплатно</span>
+                                                <span class="badge free-category">Бесплатно</span>
                                             <?php else: ?>
-                                                <span class="badge bg-warning text-dark">Платно</span>
+                                                <span class="badge text-dark free-category">Платно</span>
                                             <?php endif; ?>
-                                            <span class="badge bg-info"><?= htmlspecialchars($event['category']) ?></span>
+                                            <span class="badge category"><?= htmlspecialchars($event['category']) ?></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-0">
@@ -388,7 +388,7 @@ unset($_SESSION['review_error'], $_SESSION['review_success']);
                                         
                                         <!-- Кнопка добавления комментария -->
                                         <?php if (isset($_SESSION['user_id'])): ?>
-                                            <button class="btn btn-outline-primary add-review-btn" type="button" 
+                                            <button class="btn add-review-btn" type="button" 
                                                     data-bs-toggle="collapse" data-bs-target="#reviewForm<?= $event['id'] ?>"
                                                     aria-expanded="false" aria-controls="reviewForm<?= $event['id'] ?>">
                                                 <i class="fas fa-pen me-1"></i>Написать отзыв
@@ -405,9 +405,9 @@ unset($_SESSION['review_error'], $_SESSION['review_success']);
                                                             <label for="sentiment<?= $event['id'] ?>" class="form-label">Характер вашего отзыва</label>
                                                             <select class="form-select" id="sentiment<?= $event['id'] ?>" name="sentiment" required>
                                                                 <option value="">Выберите тип отзыва</option>
-                                                                <option value="positive">😊 Позитивный</option>
-                                                                <option value="neutral">😐 Нейтральный</option>
-                                                                <option value="negative">😔 Негативный</option>
+                                                                <option value="positive">Позитивный</option>
+                                                                <option value="neutral">Нейтральный</option>
+                                                                <option value="negative">Негативный</option>
                                                             </select>
                                                             <div class="form-text">
                                                                 <span class="me-3"><span class="sentiment-badge" style="background-color: #7ce9d3;"></span> Позитивный</span>
@@ -456,17 +456,45 @@ unset($_SESSION['review_error'], $_SESSION['review_success']);
         </div>
         
         <!-- Пагинация -->
-        <?php if ($totalPages > 1): ?>
+        <?php if ($totalPages > 1): ?>  
         <nav aria-label="Навигация по страницам" class="mt-4">
             <ul class="pagination justify-content-center">
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                        <a class="page-link" 
-                           href="?page=<?= $i ?>&city=<?= urlencode($filters['city']) ?>&age=<?= $filters['age'] ?>&category=<?= urlencode($filters['category']) ?>&price=<?= $filters['price'] ?>&search=<?= urlencode($filters['search']) ?>">
-                            <?= $i ?>
-                        </a>
-                    </li>
-                <?php endfor; ?>
+                <li class="page-item">
+                    <a class="page-link" 
+                        href="?page=<?= $page-1?>&city=<?= urlencode($filters['city']) ?>&age=<?= $filters['age'] ?>&category=<?= urlencode($filters['category']) ?>&price=<?= $filters['price'] ?>&search=<?= urlencode($filters['search']) ?>">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <?php if ($page != 1): ?>
+                    <?php for ($i = $page-1; $i <= $page+2; $i++): ?>
+                        <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                            <a class="page-link" 
+                            href="?page=<?= $i ?>&city=<?= urlencode($filters['city']) ?>&age=<?= $filters['age'] ?>&category=<?= urlencode($filters['category']) ?>&price=<?= $filters['price'] ?>&search=<?= urlencode($filters['search']) ?>">
+                                <?= $i ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                <?php else: ?>
+                    <?php for ($i = $page; $i <= $page+3; $i++): ?>
+                        <?php if ($i > $totalPages): ?>
+                            <?php break;?>
+                        <?php endif; ?>
+                        <?php if ($i < $totalPages): ?>
+                            <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                <a class="page-link" 
+                                href="?page=<?= $i ?>&city=<?= urlencode($filters['city']) ?>&age=<?= $filters['age'] ?>&category=<?= urlencode($filters['category']) ?>&price=<?= $filters['price'] ?>&search=<?= urlencode($filters['search']) ?>">
+                                    <?= $i ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                <?php endif; ?>
+                <li class="page-item">
+                    <a class="page-link" 
+                        href="?page=<?= $page+1 ?>&city=<?= urlencode($filters['city']) ?>&age=<?= $filters['age'] ?>&category=<?= urlencode($filters['category']) ?>&price=<?= $filters['price'] ?>&search=<?= urlencode($filters['search']) ?>">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
         <?php endif; ?>
@@ -474,46 +502,11 @@ unset($_SESSION['review_error'], $_SESSION['review_success']);
         
     </main>
 
-    <!-- Футер -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Культурный навигатор</h5>
-                    <p>Находим лучшие мероприятия для детей в вашем городе.</p>
-                    <div class="social-links">
-                        <a href="#" class="text-white me-3"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Навигация</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.php" class="text-white-50 text-decoration-none">Афиша</a></li>
-                        <li><a href="#subscriptions" class="text-white-50 text-decoration-none">Подписки</a></li>
-                        <li><a href="#reviews" class="text-white-50 text-decoration-none">Отзывы</a></li>
-                        <li><a href="#about" class="text-white-50 text-decoration-none">О проекте</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Контакты</h5>
-                    <p class="mb-1"><i class="fas fa-envelope me-2"></i> info@culture-navigator.ru</p>
-                    <p><i class="fas fa-phone me-2"></i> 8-800-123-45-67</p>
-                    <p class="small text-white-50 mt-3">
-                        Используются данные с портала открытых данных Минкультуры РФ
-                    </p>
-                </div>
-            </div>
-            <hr class="bg-white-50">
-            <div class="text-center pt-2">
-                <p class="small mb-0">© 2024 Культурный навигатор. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
+    <?php include "footer.html"; ?>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
 
 </body>
 </html>

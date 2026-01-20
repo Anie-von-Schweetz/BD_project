@@ -292,8 +292,15 @@ if (isset($_GET['success'])) {
                                     <input class="form-check-input" type="checkbox" name="is_free_only" value="1" <?= (isset($edit_subscription) && $edit_subscription['is_free_only']) ? 'checked' : '' ?>>
                                     <label class="form-check-label">Только бесплатные мероприятия</label>
                                 </div>
-
                                 <!-- Максимальная цена -->
+                                <div class="col-md-6">
+                                    <label for="price_filter" class="form-label">Цена</label>
+                                    <select class="form-select" id="price_filter" name="price_filter">
+                                        <option value="">Любые</option>
+                                        <option value="free" <?= (isset($edit_subscription) && ($edit_subscription['price_filter'] ?? '') == 'free') ? 'selected' : '' ?>>Бесплатные</option>
+                                        <option value="paid" <?= (isset($edit_subscription) && ($edit_subscription['price_filter'] ?? '') == 'paid') ? 'selected' : '' ?>>Платные</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="price_max" class="form-label">Максимальная цена</label>
                                     <div class="input-group">
@@ -307,7 +314,7 @@ if (isset($_GET['success'])) {
                             <!-- Информационное сообщение -->
                             <div class="alert alert-info mb-4">
                                 <i class="fas fa-info-circle me-2"></i>
-                                При появлении новых мероприятий, соответствующих указанным параметрам, вы будете получать уведомления на почту.
+                                Вы можете применять параметры указанных фильтров для поиска подходящих мероприятий!
                             </div>
                             
                             <!-- Кнопки формы -->
@@ -348,29 +355,29 @@ if (isset($_GET['success'])) {
                                         <!-- Параметры подписки -->
                                         <div class="subscription-params">
                                             <?php if (!empty($subscription['city'])): ?>
-                                                <span class="param-badge">
+                                                <span class="param-badge city">
                                                     <i class="fas fa-city"></i> <?= htmlspecialchars($subscription['city']) ?>
                                                 </span>
                                             <?php endif; ?>
                                             
                                             <?php if ($subscription['age'] > 0): ?>
-                                                <span class="param-badge">
+                                                <span class="param-badge age">
                                                     <i class="fas fa-child"></i> <?= $subscription['age'] ?>+
                                                 </span>
                                             <?php endif; ?>
                                             
                                             <?php if (!empty($subscription['event_categories'])): ?>
-                                                <span class="param-badge">
+                                                <span class="param-badge category">
                                                     <i class="fas fa-tag"></i> <?= htmlspecialchars($subscription['event_categories']) ?>
                                                 </span>
                                             <?php endif; ?>
                                             
                                             <?php if ($subscription['is_free_only']): ?>
-                                                <span class="param-badge">
+                                                <span class="param-badge price">
                                                     <i class="fas fa-coins"></i> Бесплатные
                                                 </span>
                                             <?php elseif (!empty($subscription['price_max'])): ?>
-                                                <span class="param-badge">
+                                                <span class="param-badge price">
                                                     <i class="fas fa-ruble-sign"></i> До <?= $subscription['price_max'] ?> руб.
                                                 </span>
                                             <?php endif; ?>
@@ -403,13 +410,7 @@ if (isset($_GET['success'])) {
     </main>
 
     <!-- Футер -->
-    <footer class="footer mt-5">
-        <div class="container">
-            <div class="text-center pt-3">
-                <p class="small mb-0">© 2024 Культурный навигатор. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
+    <?php include "footer.html" ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

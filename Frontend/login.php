@@ -183,13 +183,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
                         <input type="password" class="form-control" id="loginPassword" 
                                name="password" required 
                                placeholder="Ваш пароль">
-                        <button class="btn btn-outline-secondary" type="button" 
-                                onclick="togglePassword('loginPassword')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                    <div class="form-text">
-                        <a href="#forgot-password" class="text-decoration-none">Забыли пароль?</a>
                     </div>
                 </div>
                 
@@ -306,23 +299,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
             
             // Обновляем URL без перезагрузки страницы
             history.pushState(null, null, '?action=' + formType);
-        }
-        
-        // Переключение видимости пароля
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const button = event.currentTarget;
-            const icon = button.querySelector('i');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
         }
         
         // Проверка совпадения паролей
