@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
-// Добавляем проверку сессии
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -124,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 params.push('price=free');
             } else if (priceMax && priceMax != '') {
                 params.push('price=paid');
-                // Можно также добавить логику для максимальной цены
             }
             
             // Если есть параметры - перенаправляем

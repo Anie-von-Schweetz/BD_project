@@ -1,11 +1,10 @@
 <?php
-// config/database.php
 
 // Настройки подключения к БД
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root'); // Замените на вашего пользователя БД
-define('DB_PASSWORD', ''); // Замените на ваш пароль
-define('DB_NAME', 'culture_navigator'); // Замените на имя вашей БД
+define('DB_USER', 'root'); 
+define('DB_PASSWORD', ''); 
+define('DB_NAME', 'culture_navigator'); 
 
 // Подключение к базе данных
 function connectDB() {

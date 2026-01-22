@@ -1,5 +1,4 @@
 <?php
-// includes/ApiClient.php
 require_once 'CacheManager.php';
 
 class ApiClient {

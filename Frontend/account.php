@@ -292,15 +292,6 @@ if (isset($_GET['success'])) {
                                     <input class="form-check-input" type="checkbox" name="is_free_only" value="1" <?= (isset($edit_subscription) && $edit_subscription['is_free_only']) ? 'checked' : '' ?>>
                                     <label class="form-check-label">Только бесплатные мероприятия</label>
                                 </div>
-                                <!-- Максимальная цена -->
-                                <div class="col-md-6">
-                                    <label for="price_filter" class="form-label">Цена</label>
-                                    <select class="form-select" id="price_filter" name="price_filter">
-                                        <option value="">Любые</option>
-                                        <option value="free" <?= (isset($edit_subscription) && ($edit_subscription['price_filter'] ?? '') == 'free') ? 'selected' : '' ?>>Бесплатные</option>
-                                        <option value="paid" <?= (isset($edit_subscription) && ($edit_subscription['price_filter'] ?? '') == 'paid') ? 'selected' : '' ?>>Платные</option>
-                                    </select>
-                                </div>
                                 <div class="col-md-6">
                                     <label for="price_max" class="form-label">Максимальная цена</label>
                                     <div class="input-group">

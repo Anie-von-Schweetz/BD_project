@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once __DIR__ . '/../Backend/database.php';
-$current_page = 'shop.php';
 
 // Проверяем, авторизован ли пользователь
 if (isset($_SESSION['user_id'])) {

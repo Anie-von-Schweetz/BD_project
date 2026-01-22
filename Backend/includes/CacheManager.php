@@ -1,5 +1,4 @@
 <?php
-// includes/CacheManager.php
 class CacheManager {
     private $cacheDir;
     private $cacheTime;
